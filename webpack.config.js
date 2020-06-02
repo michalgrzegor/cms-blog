@@ -5,7 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: {
+    app: './src/index.js',
+    editor: './src/components/text_editor/editor.js',
+  },
   output: {
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[contenthash].js',
@@ -23,8 +26,15 @@ module.exports = {
       cleanStaleWebpackAssets: false,
     }),
     new HtmlWebpackPlugin({
+      filename: 'index.html',
       title: 'Blog SEO',
       template: './src/template.html',
+      chunks: ['app'],
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'editor.html',
+      template: './src/components/text_editor/editor.html',
+      chunks: ['editor'],
     }),
   ],
   module: {
@@ -32,6 +42,10 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.html$/i,
+        loader: ['html-loader'],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,

@@ -1,0 +1,62 @@
+@import '../shared/colors.scss';
+@import '../shared/mixins.scss';
+
+.editor__container {
+  margin: 4.8rem auto;
+  max-width: 91.6rem;
+
+  .editor__pallete {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    width: 100%;
+    background: $boldText;
+
+    .editor__option {
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 3.6rem;
+      height: 3.6rem;
+
+      .editor__heading {
+        font-size: 1.8rem;
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+
+      .editor__heading,
+      .material-icons {
+        color: $whiteText;
+      }
+    }
+
+    .editor__option:hover {
+      background: $boldText;
+    }
+
+    .editor__option:focus {
+
+      .editor__heading,
+      .material-icons {
+        color: $whiteTextBright;
+      }
+    }
+  }
+
+  .editor__window {
+    box-sizing: border-box;
+    margin-top: 3.6rem;
+    width: 100%;
+    min-height: 50vh;
+    background: $mainPlainColor;
+    @include textOpenSansLight(1.6rem, $headerText);
+  }
+
+  .editor__window:focus {
+    outline: none;
+    -webkit-box-shadow: 0px 0px 22px -10px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 22px -10px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 22px -10px rgba(0, 0, 0, 0.6);
+  }
+}

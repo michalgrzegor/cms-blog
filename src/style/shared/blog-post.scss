@@ -1,0 +1,102 @@
+// $background: #efefef;
+// $cardBackground: #fdfdfd;
+
+@import './mixins.scss';
+@import './colors.scss';
+
+.article {
+    // background: $cardBackground;
+    // max-width: 960px;
+    // margin: 4rem;
+
+    h1 {
+        @include textWorkSansBold(3.6rem, $headerText);
+        padding: 1.6rem 3.2rem;
+        margin: 0;
+    }
+
+    h2 {
+        @include textWorkSansBold(2.4rem, $headerText);
+        padding: 1.6rem 3.2rem;
+        margin: 0;
+    }
+
+    h3 {
+        @include textWorkSansBold(1.4rem, $headerText);
+        margin: 0;
+    }
+
+    p {
+        @include textOpenSansLight(1.6rem, $headerText);
+        padding: 1.6rem 3.2rem;
+        margin: 0;
+    }
+
+    .article--style-bold {
+        font-weight: bold;
+    }
+
+    .article--style-italic {
+        font-style: italic;
+    }
+
+    .article--decorator-underline {
+        text-decoration: underline;
+    }
+
+    .article__data {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.6rem 3.2rem;
+
+        .article__author {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+
+            .article__author-avatar {
+                width: 34px;
+                height: 34px;
+                margin-right: 8px;
+            }
+
+            .article__author-name {
+                @include textWorkSansBold(1.2rem, $headerText);
+            }
+
+            .article__date {
+                @include textWorkSansLight(1.2rem, $headerText);
+            }
+        }
+
+        .articel__media {
+            display: flex;
+            flex-wrap: wrap;
+
+            .article__media-link {
+                display: block;
+                width: 24px;
+                height: 24px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+            }
+        }
+    }
+
+    .article__tags {
+        padding: 1.6rem 3.2rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+
+        .article__tag--size-small::before {
+            content: '#';
+            margin-left: .8rem;
+        }
+    }
+}

@@ -1,0 +1,60 @@
+const options = [
+  {
+    name: 'bold',
+    command: 'bold',
+    valueArgument: null,
+    description: 'Bold',
+    icon_name: 'format_bold',
+    class: 'article--style-bold',
+  },
+  {
+    name: 'italic',
+    command: 'italic',
+    valueArgument: null,
+    description: 'Italic',
+    icon_name: 'format_italic',
+    class: 'article--style-italic',
+  },
+  {
+    name: 'underlined',
+    command: 'underline',
+    valueArgument: null,
+    description: 'Underline',
+    icon_name: 'format_underlined',
+    class: 'article--decorator-underline',
+  },
+  {
+    name: 'heading',
+    command: 'formatBlock',
+    valueArgument: 'h1',
+    description: 'Heading 1',
+    icon_name: 'title',
+    class: null,
+  },
+  {
+    name: 'heading',
+    command: 'formatBlock',
+    valueArgument: 'h2',
+    description: 'Heading 2',
+    icon_name: 'title',
+    class: null,
+  },
+  {
+    name: 'insert image',
+    command: 'insertImage',
+    valueArgument: 'insertImage',
+    description: 'Insert image',
+    icon_name: 'insert_photo',
+    class: null,
+  },
+  {
+    name: 'removeFormat',
+    command: 'removeFormat',
+    valueArgument: null,
+    description: 'Remove formating',
+    icon_name: 'format_clear',
+    class: null,
+  },
+];
+
+export default options;

@@ -1,3 +1,39 @@
-body {
-  background: green;
+@import './shared/colors.scss';
+@import './shared/mixins.scss';
+
+@import './components_style/nav.scss';
+@import './components_style/post-miniature.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  font-size: 10px;
+  background-color: $backgroundGrey;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.home__title {
+  @include textWorkSansLight(4.8rem, $boldText);
+  text-align: center;
+  padding: 4.8rem;
+}
+
+@media (max-width: 480px) {
+
+  body,
+  html {
+    font-size: 8px;
+  }
+
+  .home__title {
+    padding: 2rem;
+  }
 }
