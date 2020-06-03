@@ -7,7 +7,7 @@ module.exports = {
   mode: 'development',
   entry: {
     app: './src/index.js',
-    editor: './src/components/text_editor/editor.js',
+    editor: './src/components/editor/editor.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -33,7 +33,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'editor.html',
-      template: './src/components/text_editor/editor.html',
+      template: './src/components/editor/editor.html',
       chunks: ['editor'],
     }),
   ],

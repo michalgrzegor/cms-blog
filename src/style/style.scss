@@ -13,6 +13,7 @@ body,
 html {
   font-size: 10px;
   background-color: $backgroundGrey;
+  height: 100%;
 }
 
 a {
@@ -27,7 +28,6 @@ a {
 }
 
 @media (max-width: 480px) {
-
   body,
   html {
     font-size: 8px;

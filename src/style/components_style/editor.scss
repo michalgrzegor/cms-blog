@@ -1,0 +1,18 @@
+@import '../style.scss';
+@import '../shared/blog-post.scss';
+@import '../shared/mixins.scss';
+@import '../shared/colors.scss';
+
+.editor__container {
+  //   background: $mainPlainColor;
+
+  #editorjs {
+    display: flex;
+    justify-content: center;
+    .codex-editor {
+      padding-top: 3.6rem;
+      min-width: 96rem;
+      background-color: $mainPlainColor;
+    }
+  }
+}
