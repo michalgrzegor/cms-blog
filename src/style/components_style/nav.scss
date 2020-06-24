@@ -7,6 +7,7 @@ nav {
     background: $mainPlainColor;
     transition: .4s ease-out;
     position: fixed;
+    z-index: 100;
 
     .nav__burger {
         box-sizing: border-box;
