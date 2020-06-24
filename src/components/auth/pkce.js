@@ -79,7 +79,7 @@ const parseQueryString = string => {
   return queryString;
 };
 
-const errorHandling = (response, message = null) => {
+export const errorHandling = (response, message = null) => {
   const text = !message ? response.body : message;
   if (!response.ok) showSnackBar(text);
   return response;
@@ -151,11 +151,11 @@ export const makeRefreshTokenPost = async () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(params),
-  })
-    .then(r => errorHandling(r, 'nie wyszło'))
-    .then(r => r.json())
-    .then(r => TOKEN_HANDLER.setTokens(r))
-    .catch(error => errorHandling(error, 'nie wyszło'));
+  });
+  // .then(r => errorHandling(r, 'nie wyszło'))
+  // .then(r => r.json())
+  // .then(r => TOKEN_HANDLER.setTokens(r))
+  // .catch(error => errorHandling(error, 'nie wyszło'));
 };
 
 export const logout = async () => {

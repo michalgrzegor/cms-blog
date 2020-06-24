@@ -1,6 +1,6 @@
 import {createLoader, removeLoader} from '../UI/loader';
 import TokenHandler from './token';
-import {makeRefreshTokenPost, login} from './pkce';
+import {login} from './pkce';
 
 const URL = 'https://fierce-anchorage-12434.herokuapp.com/';
 
@@ -11,7 +11,7 @@ const makeRequest = async request => {
   if (TOKEN_HANDLER.getIsToken() && !TOKEN_HANDLER.getIsExpired()) {
     request();
   } else if (TOKEN_HANDLER.getIsRefresh()) {
-    makeRefreshTokenPost()
+    TOKEN_HANDLER.refreshToken()
       .then(res => console.log(res))
       .then(() => request());
   } else {

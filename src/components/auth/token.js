@@ -1,3 +1,5 @@
+import {makeRefreshTokenPost, errorHandling} from './pkce';
+
 export default class TokenHandler {
   constructor() {
     this.TOKEN = null;
@@ -21,6 +23,7 @@ export default class TokenHandler {
       const NowMs = new Date().getTime();
       const expTime = localStorage.getItem('refresh_token_expired_time') * 1000;
       this.isExpired = NowMs - tokenCreationTime > expTime;
+      if (!this.isExpired) this.refreshToken();
     } else {
       this.isExpired = true;
     }
@@ -36,6 +39,14 @@ export default class TokenHandler {
         this.isExpired = true;
       }, expTime - NowMs + tokenCreationTime);
     }
+  }
+
+  async refreshToken() {
+    return makeRefreshTokenPost()
+      .then(r => errorHandling(r, 'nie wyszło'))
+      .then(r => r.json())
+      .then(r => this.setTokens(r))
+      .catch(error => errorHandling(error, 'nie wyszło'));
   }
 
   getToken() {
