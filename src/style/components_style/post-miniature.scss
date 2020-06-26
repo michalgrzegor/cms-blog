@@ -68,6 +68,7 @@
 
         .miniature__opening {
           @include textOpenSansLight(1rem, $headerText);
+          padding: 0;
         }
       }
 
@@ -80,6 +81,7 @@
 
           .post__comments {
             @include textOpenSansLight(1rem, $headerText);
+            padding: 0 0 0 1.6rem;
           }
         }
       }

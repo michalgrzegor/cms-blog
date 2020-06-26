@@ -1,7 +1,7 @@
+import Quill from 'quill';
+import {options, quillbtn} from './quill-options';
 import '../../style/components_style/editor.scss';
-import EditorJS from '@editorjs/editorjs';
-import options from './editor-options';
-import {fireBtn, fireLoadBtn} from './editor-func';
+import 'quill/dist/quill.snow.css';
 import {handleRedirect, logout} from '../auth/pkce';
 import navOpen from '../UI/nav';
 import {generateToken, TOKEN_HANDLER} from '../auth/fetch';
@@ -12,12 +12,8 @@ const onLoad = () => {
     handleRedirect();
   });
 };
-const editor = new EditorJS(options);
-fireBtn(editor);
-fireLoadBtn(editor);
 onLoad();
 navOpen();
-
 const tokenButton = () => {
   const button = document.querySelector('.token');
   button.addEventListener('click', () => generateToken());
@@ -28,3 +24,6 @@ const logoutButton = () => {
   button.addEventListener('click', () => logout());
 };
 logoutButton();
+
+const editor = new Quill('#editor', options);
+quillbtn(editor);

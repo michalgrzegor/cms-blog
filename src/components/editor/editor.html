@@ -1,58 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0" />
-  <title>Document</title>
-</head>
-
-<body>
-
-  <nav class="nav--close">
-    <a class="nav__burger">
-      <div class="burger__line"></div>
-      <div class="burger__line"></div>
-      <div class="burger__line"></div>
-    </a>
-    <div class="nav__content">
-      <div class="nav__logo">
-        <a href="./index.html"><img src="../../assets/img/logo.png" alt="" /></a>
+  <body>
+    <nav class="nav--close">
+      <a class="nav__burger">
+        <div class="burger__line"></div>
+        <div class="burger__line"></div>
+        <div class="burger__line"></div>
+      </a>
+      <div class="nav__content">
+        <div class="nav__logo">
+          <a href="./index.html"><img src="../../assets/img/logo.png" alt="" /></a>
+        </div>
+        <ul class="nav__menu">
+          <li class="menu__element menu__element--active">
+            <a href="./editor.html">EDIT POST</a>
+          </li>
+          <li class="menu__element">
+            <a href="">CREATE POST</a>
+          </li>
+          <li class="menu__element">
+            <a href="">STATISTICS</a>
+          </li>
+        </ul>
+        <ul class="nav__social">
+          <li class="social__element">
+            <a href="">
+              <img class="social__icon" src="../../assets/img/facebook.png" alt="" />
+            </a>
+          </li>
+          <li class="social__element">
+            <a href="">
+              <img class="social__icon" src="../../assets/img/twitter.png" alt="" />
+            </a>
+          </li>
+        </ul>
       </div>
-      <ul class="nav__menu">
-        <li class="menu__element menu__element--active">
-          <a href="./editor.html">EDIT POST</a>
-        </li>
-        <li class="menu__element">
-          <a href="">CREATE POST</a>
-        </li>
-        <li class="menu__element">
-          <a href="">STATISTICS</a>
-        </li>
-      </ul>
-      <ul class="nav__social">
-        <li class="social__element">
-          <a href="">
-            <img class="social__icon" src="../../assets/img/facebook.png" alt="" />
-          </a>
-        </li>
-        <li class="social__element">
-          <a href="">
-            <img class="social__icon" src="../../assets/img/twitter.png" alt="" />
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <h1 class="home__title">Post editor</h1>
-  <main class="editor__container">
-    <button type="button" class="saveBtn">SAVE</button>
+    </nav>
+    <h1 class="home__title">Post editor</h1>
     <button type="button" class="loadBtn">LOAD</button>
     <button class="token">TOKEN</button>
     <button class="logout">logout</button>
-    <div id="editorjs"></div>
-    <div class="output"></div>
-  </main>
-</body>
-
+    <main class="editor__container">
+      <div>
+        <div id="editor"></div>
+      </div>
+    </main>
+    <!-- <div id="otput"></div> -->
+  </body>
 </html>

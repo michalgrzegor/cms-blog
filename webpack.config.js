@@ -1,8 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const {
-  CleanWebpackPlugin
-} = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -11,6 +9,7 @@ module.exports = {
     app: './src/index.js',
     editor: './src/components/editor/editor.js',
     auth: './src/components/auth/auth.js',
+    blogpost: './src/components/blog-post/blog-post.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -44,11 +43,21 @@ module.exports = {
       template: './src/components/auth/auth.html',
       chunks: ['auth'],
     }),
+    new HtmlWebpackPlugin({
+      filename: 'blog-post.html',
+      template: './src/components/blog-post/blog-post.html',
+      chunks: ['blogpost'],
+    }),
   ],
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.s[ac]ss$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.html$/i,

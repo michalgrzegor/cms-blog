@@ -1,9 +1,15 @@
 @import './mixins.scss';
 @import './colors.scss';
+@import '../style.scss';
+
+.article {
+  max-width: 96rem;
+  margin: 3.2rem auto;
+  background: $mainPlainColor;
+}
 
 .article,
 .editor__container {
-
   .ce-paragraph {
     @include textOpenSansLight(1.6rem, $headerText);
     padding: 1.6rem 3.2rem;
@@ -18,7 +24,7 @@
     font-style: italic;
   }
 
-  .article--decorator-underline {
+  .article--style-underline {
     text-decoration: underline;
   }
 
@@ -36,9 +42,9 @@
       align-items: center;
 
       .article__author-avatar {
-        width: 34px;
-        height: 34px;
-        margin-right: 8px;
+        width: 3.4rem;
+        height: 3.4rem;
+        margin-right: .8rem;
       }
 
       .article__author-name {
@@ -56,11 +62,16 @@
 
       .article__media-link {
         display: block;
-        width: 24px;
-        height: 24px;
+        width: 2.4rem;
+        height: 2.4rem;
         display: flex;
         justify-content: center;
         align-items: center;
+
+        img {
+          width: 1.7rem;
+          height: 1.7rem;
+        }
       }
     }
   }
@@ -75,5 +86,11 @@
       content: '#';
       margin-left: 0.8rem;
     }
+  }
+}
+
+@media (max-width: 1000px) {
+  .article {
+    margin: 3.2rem 1.6rem;
   }
 }

@@ -4,15 +4,13 @@
 @import '../shared/colors.scss';
 
 .editor__container {
-  //   background: $mainPlainColor;
+  display: flex;
+  justify-content: center;
 
-  #editorjs {
-    display: flex;
-    justify-content: center;
-    .codex-editor {
-      padding-top: 3.6rem;
-      min-width: 96rem;
-      background-color: $mainPlainColor;
-    }
+  #editor {
+    width: 96rem;
+    background: $mainPlainColor;
+    min-height: 50vh;
+    @include textOpenSansLight(1.6rem, $headerText);
   }
 }
