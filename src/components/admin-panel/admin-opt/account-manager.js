@@ -15,17 +15,27 @@ const toggleElements = () => {
 
 const editAccount = () => {
   toggleElements();
-  document.querySelector('.input__name').value = document.querySelector('.account__name').innerText;
+  document.querySelector('.input__name').value = document.querySelector(
+    '.account__name span'
+  ).innerText;
   document.querySelector('.input__email').value = document.querySelector(
-    '.account__email'
+    '.account__email span'
+  ).innerText;
+  document.querySelector('.input__about').value = document.querySelector(
+    '.account__about span'
   ).innerText;
 };
 
 const saveAccount = () => {
   toggleElements();
-  document.querySelector('.account__name').innerText = document.querySelector('.input__name').value;
-  document.querySelector('.account__email').innerText = document.querySelector(
+  document.querySelector('.account__name span').innerText = document.querySelector(
+    '.input__name'
+  ).value;
+  document.querySelector('.account__email span').innerText = document.querySelector(
     '.input__email'
+  ).value;
+  document.querySelector('.account__about span').innerText = document.querySelector(
+    '.input__about'
   ).value;
 };
 
@@ -37,8 +47,9 @@ const addEvents = template => {
 const renderMyAccount = json => {
   const container = document.querySelector('.admin__container');
   const template = getTemplate();
-  template.querySelector('.account__name').innerText = `name: ${json.name}`;
-  template.querySelector('.account__email').innerText = `email: ${json.email}`;
+  template.querySelector('.account__name span').innerText = `${json.name}`;
+  template.querySelector('.account__email span').innerText = `${json.email}`;
+  template.querySelector('.account__about span').innerText = `${json.about}`;
   addEvents(template);
   container.appendChild(template);
 };

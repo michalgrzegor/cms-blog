@@ -105,12 +105,17 @@
   <template id="account__template">
     <div class="account__data">
       <img src="../../assets/img/authorimgbig.png" alt="" />
-      <h2 class="account__name"></h2>
-      <h2 class="account__email"></h2>
+      <h3 class="account__name">name: <span></span></h3>
+      <h3 class="account__email">email: <span></span></h3>
+      <h3 class="account__about">about: <span></span></h3>
     </div>
     <div class="account__edit hide">
+      <p>name:</p>
       <input class="input__name" type="text" />
+      <p>email:</p>
       <input class="input__email" type="text" />
+      <p>about:</p>
+      <textarea name="input__about" class="input__about" cols="30" rows="10"></textarea>
     </div>
     <div class="editor__buttons">
       <button class="editor__button btn-edit">Edit Account</button>

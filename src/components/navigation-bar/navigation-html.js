@@ -22,7 +22,7 @@ const navigationBody = `
                     <a href="./index.html">HOME</a>
                 </li>
                 <li class="menu__element">
-                    <a href="">ABOUT US</a>
+                    <a href="./about.html">ABOUT US</a>
                 </li>
                 <li class="menu__element">
                     <a href="">CONTACT</a>

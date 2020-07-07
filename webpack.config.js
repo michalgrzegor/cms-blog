@@ -10,6 +10,7 @@ module.exports = {
     admin: './src/components/admin-panel/admin-panel.js',
     auth: './src/components/auth/auth.js',
     blogpost: './src/components/blog-post/blog-post.js',
+    about: './src/components/about/about.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -47,6 +48,11 @@ module.exports = {
       filename: 'blog-post.html',
       template: './src/components/blog-post/blog-post.html',
       chunks: ['blogpost'],
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'about.html',
+      template: './src/components/about/about.html',
+      chunks: ['about'],
     }),
   ],
   module: {
