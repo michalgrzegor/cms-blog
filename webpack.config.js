@@ -7,7 +7,7 @@ module.exports = {
   mode: 'development',
   entry: {
     app: './src/index.js',
-    editor: './src/components/editor/editor.js',
+    admin: './src/components/admin-panel/admin-panel.js',
     auth: './src/components/auth/auth.js',
     blogpost: './src/components/blog-post/blog-post.js',
   },
@@ -34,9 +34,9 @@ module.exports = {
       chunks: ['app'],
     }),
     new HtmlWebpackPlugin({
-      filename: 'editor.html',
-      template: './src/components/editor/editor.html',
-      chunks: ['editor'],
+      filename: 'admin-panel.html',
+      template: './src/components/admin-panel/admin-panel.html',
+      chunks: ['admin'],
     }),
     new HtmlWebpackPlugin({
       filename: 'auth.html',

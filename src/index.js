@@ -1,15 +1,17 @@
 import './style/style.scss';
-import openNav from './components/UI/nav';
-import PostMiniatures from './components/UI/post-miniature';
+import PostsMiniatures from './components/UI/post-miniature';
 import {TOKEN_HANDLER} from './components/auth/fetch';
+import NavigationBar from './components/navigation-bar/navigation';
 
-openNav();
-const postMiniatures = new PostMiniatures();
-postMiniatures.renderPostsMin();
+window.customElements.define('navigation-bar', NavigationBar);
 // import Icon from './assets/****'; adding images from assets
 const onLoad = () => {
   window.addEventListener('load', () => {
     TOKEN_HANDLER.setIsExpired();
   });
 };
+
+const PM = new PostsMiniatures();
+PM.initPostsMiniatures();
+
 onLoad();

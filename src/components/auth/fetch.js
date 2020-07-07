@@ -9,14 +9,14 @@ export const TOKEN_HANDLER = new TokenHandler(null);
 const makeRequest = async request => {
   console.log(request);
   if (TOKEN_HANDLER.getIsToken() && !TOKEN_HANDLER.getIsExpired()) {
-    request();
-  } else if (TOKEN_HANDLER.getIsRefresh()) {
-    TOKEN_HANDLER.refreshToken()
+    return request();
+  }
+  if (TOKEN_HANDLER.getIsRefresh()) {
+    return TOKEN_HANDLER.refreshToken()
       .then(res => console.log(res))
       .then(() => request());
-  } else {
-    login();
   }
+  login();
 };
 
 export const signup = () => {
@@ -54,19 +54,17 @@ export const reset = () => {
     .then(data => console.log(data));
 };
 
-const getToken = () => {
+const getToken = async () => {
   console.log(TOKEN_HANDLER.getToken());
-  fetch(`${URL}registration_tokens`, {
+  return fetch(`${URL}registration_tokens`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${TOKEN_HANDLER.getToken()}`,
     },
-  })
-    .then(response => response.json())
-    .then(data => console.log(data));
+  });
 };
 
-export const generateToken = () => {
-  makeRequest(getToken);
+export const generateToken = async () => {
+  return makeRequest(getToken);
 };

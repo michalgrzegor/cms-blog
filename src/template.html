@@ -6,52 +6,19 @@
       name="viewport"
       content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0"
     />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Work+Sans:wght@300;700&display=swap"
-      rel="stylesheet"
-    />
 
     <title>Document</title>
   </head>
 
   <body>
-    <nav class="nav--close">
-      <a class="nav__burger">
-        <div class="burger__line"></div>
-        <div class="burger__line"></div>
-        <div class="burger__line"></div>
-      </a>
-      <div class="nav__content">
-        <div class="nav__logo">
-          <a href="./index.html"><img src="./assets/img/logo.png" alt="" /></a>
-        </div>
-        <ul class="nav__menu">
-          <li class="menu__element menu__element--active">
-            <a href="./editor.html">HOME</a>
-          </li>
-          <li class="menu__element">
-            <a href="">ABOUT US</a>
-          </li>
-          <li class="menu__element">
-            <a href="">CONTACT</a>
-          </li>
-        </ul>
-        <ul class="nav__social">
-          <li class="social__element">
-            <a href="">
-              <img class="social__icon" src="./assets/img/facebook.png" alt="" />
-            </a>
-          </li>
-          <li class="social__element">
-            <a href="">
-              <img class="social__icon" src="./assets/img/twitter.png" alt="" />
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <navigation-bar></navigation-bar>
     <main>
       <h1 class="home__title">Świeżo zaprojektowany blog</h1>
+      <div class="blog__search">
+        <input type="text" />
+        <img src="./assets/svg/search.svg" alt="search button" />
+        <!-- <button type="button"><img src="./assets/svg/search.svg" alt="search button" /></button> -->
+      </div>
       <div class="container"></div>
     </main>
 
@@ -62,19 +29,15 @@
         </div>
         <div class="miniature__info">
           <div class="miniature__content">
-            <h3 class="miniature__title">Nulla pellentesque, mauris at blandit dictum</h3>
+            <h3 class="miniature__title"></h3>
             <div class="miniature__author">
               <img src="./assets/img/authorimg.png" alt="" />
               <div class="author__info">
-                <h4 class="author__name">Mateusz Grzegorczyk</h4>
-                <p class="post__date">2020-02-11</p>
+                <h4 class="author__name"></h4>
+                <p class="post__date"></p>
               </div>
             </div>
-            <p class="miniature__opening">
-              Suspendisse eget neque id lectus malesuada venenatis vel nec tortor. Aliquam aliquam
-              ut turpis sed volutpat. Class aptent taciti sociosqu ad litora torquent per conubia
-              nostra, per inceptos himenaeos.
-            </p>
+            <p class="miniature__opening"></p>
           </div>
           <div class="miniature__social">
             <div class="post__comment">

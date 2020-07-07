@@ -5,7 +5,7 @@ const URL = 'https://fierce-anchorage-12434.herokuapp.com/';
 
 const CONFIG = {
   client_id: 'fecp3e5pAkjOarXF5nsWAoPe1_qr-s2E81chKuSGP0o',
-  redirect_uri: 'http://localhost:8080/editor.html',
+  redirect_uri: 'http://localhost:8080/admin-panel.html',
   authorization_endpoint: 'oauth/authorize',
   token_endpoint: 'oauth/token',
   requested_scopes: 'openid',
@@ -91,7 +91,7 @@ const handleToken = body => {
     TOKEN_HANDLER.setTokens(res);
     // createTokenHandlerInstance(res);
   });
-  window.history.replaceState({}, null, '/editor.html');
+  window.history.replaceState({}, null, '/admin-panel.html');
 };
 
 // Make a POST request and parse the response as JSON
@@ -152,10 +152,16 @@ export const makeRefreshTokenPost = async () => {
     },
     body: JSON.stringify(params),
   });
-  // .then(r => errorHandling(r, 'nie wyszło'))
-  // .then(r => r.json())
-  // .then(r => TOKEN_HANDLER.setTokens(r))
-  // .catch(error => errorHandling(error, 'nie wyszło'));
+};
+
+const handleLogout = response => {
+  if (response.status === 200) {
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('refresh_token_created_at');
+    localStorage.removeItem('refresh_token_expired_time');
+    window.location.href = 'http://localhost:8080/index.html';
+  }
+  return response;
 };
 
 export const logout = async () => {
@@ -171,6 +177,7 @@ export const logout = async () => {
     }
   )
     .then(r => errorHandling(r, 'nie wyszło'))
+    .then(response => handleLogout(response))
     .then(response => console.log(response))
     .catch(error => errorHandling(error, 'nie wyszło'));
 };
