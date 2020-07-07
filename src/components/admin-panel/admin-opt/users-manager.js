@@ -28,10 +28,17 @@ const renderTokenButton = mngType => {
   container.appendChild(btns);
 };
 
+const addBtnEvents = () => {
+  document.querySelector('.admin__container').addEventListener('click', event => {
+    if (true) console.log(event);
+  });
+};
+
 const renderUsersManager = usersList => {
   mf.renderLegend('user', users, 'users');
   mf.renderTable(usersList.users, 'user');
   renderTokenButton('user');
+  addBtnEvents();
 };
 
 const initUsersManager = () => {

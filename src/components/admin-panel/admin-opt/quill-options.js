@@ -1,5 +1,6 @@
 import Quill from 'quill';
 import createBlogPost from '../../blog-post/blog-ui';
+import {blogPostReq} from '../../auth/fetch';
 
 const options = {
   modules: {
@@ -62,6 +63,27 @@ const previewButton = (editor, introductionEditor) => {
   previeBtn.addEventListener('click', () => openPreview(editor, introductionEditor));
 };
 
+const sendPost = (editor, introductionEditor) => {
+  const data = {
+    title: document.querySelector('#editor__title').value,
+    introduction: introductionEditor.getContents().ops,
+    data: {
+      editor: 'Quill',
+      ops: editor.getContents().ops,
+    },
+  };
+  console.log(data);
+  blogPostReq()
+    .makePostBlogPost(data)
+    .then(r => r.json())
+    .then(r => console.log(r));
+};
+
+const submitButton = (editor, introductionEditor) => {
+  const submitBtn = document.querySelectorAll('.editor__button')[0];
+  submitBtn.addEventListener('click', () => sendPost(editor, introductionEditor));
+};
+
 const createError = message => {
   const paragraph = document.createElement('p');
   paragraph.classList.add('text--color-error', 'error');
@@ -96,6 +118,7 @@ const initEditor = () => {
   const editor = new Quill('#editor', options);
   validateIntroduction(introductionEditor);
   previewButton(editor, introductionEditor);
+  submitButton(editor, introductionEditor);
 };
 
 export default initEditor;

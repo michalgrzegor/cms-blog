@@ -1,20 +1,21 @@
-import posts from '../jsons/posts.json';
-import * as mf from './manager-functions';
+import * as _mf from './manager-functions';
+import {blogPostReq} from '../../auth/fetch';
 
-const getPostsList = async () => {
-  return new Promise((resolve, reject) => {
-    resolve(posts);
-    reject(new Error(`spartoliło się`));
-  });
+const addBtnEvents = () => {
+  document.querySelector('.admin__container').addEventListener('click', () => console.log(`event`));
 };
 
 const renderPostsManager = postsList => {
-  mf.renderLegend('post', posts, 'posts');
-  mf.renderTable(postsList.posts, 'post');
+  _mf.renderLegend('post', postsList.posts, 'posts');
+  _mf.renderTable(postsList.posts, 'post');
+  addBtnEvents();
 };
 
 const initPostsManager = () => {
-  getPostsList().then(p => renderPostsManager(p));
+  blogPostReq()
+    .makeGetAllBlogPosts()
+    .then(response => response.json())
+    .then(posts => renderPostsManager(posts));
 };
 
 export default initPostsManager;
