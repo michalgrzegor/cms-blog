@@ -2,6 +2,8 @@
   "posts": [
     {
       "id": "00001",
+      "email": "costam123@gmail.com",
+      "avatar": null,
       "title": "Lorem ipsum dolor",
       "author": "David Bowie",
       "date": "2020-03-11",
@@ -10,6 +12,8 @@
     },
     {
       "id": "00002",
+      "email": "amozecostam@gmail.com",
+      "avatar": null,
       "title": "Curabitur vulputate id",
       "author": "David Bowie",
       "date": "2020-03-25",
@@ -18,6 +22,8 @@
     },
     {
       "id": "00003",
+      "email": "gcostam456@gmail.com",
+      "avatar": null,
       "title": "Vestibulum placerat",
       "author": "David Bowie",
       "date": "2020-04-25",
@@ -26,6 +32,8 @@
     },
     {
       "id": "00004",
+      "email": "hcostam123@gmail.com",
+      "avatar": null,
       "title": "Curabitur vestibulum tristique",
       "author": "David Bowie",
       "date": "2020-04-27",
@@ -34,6 +42,8 @@
     },
     {
       "id": "00005",
+      "email": "jcostam456@gmail.com",
+      "avatar": null,
       "title": "Nullam turpis tellus",
       "author": "David Bowie",
       "date": "2020-05-21",
@@ -42,6 +52,8 @@
     },
     {
       "id": "00006",
+      "email": "kcostam123@gmail.com",
+      "avatar": null,
       "title": "Lorem ipsum dolor",
       "author": "David Bowie",
       "date": "2020-03-11",
@@ -50,6 +62,8 @@
     },
     {
       "id": "00007",
+      "email": "lamozecostam@gmail.com",
+      "avatar": null,
       "title": "Curabitur vulputate id",
       "author": "David Bowie",
       "date": "2020-03-25",
@@ -58,6 +72,8 @@
     },
     {
       "id": "00008",
+      "email": "pcostam456@gmail.com",
+      "avatar": null,
       "title": "Vestibulum placerat",
       "author": "David Bowie",
       "date": "2020-04-25",
@@ -66,6 +82,8 @@
     },
     {
       "id": "00009",
+      "email": "ocostam123@gmail.com",
+      "avatar": null,
       "title": "Curabitur vestibulum tristique",
       "author": "David Bowie",
       "date": "2020-04-27",
@@ -74,6 +92,8 @@
     },
     {
       "id": "00010",
+      "email": "iamozecostam@gmail.com",
+      "avatar": null,
       "title": "Nullam turpis tellus",
       "author": "David Bowie",
       "date": "2020-05-21",
@@ -82,6 +102,8 @@
     },
     {
       "id": "00011",
+      "email": "ucostam123@gmail.com",
+      "avatar": null,
       "title": "Lorem turpis turpis turpis ipsum dolor",
       "author": "David Bowie",
       "date": "2020-03-11",
@@ -90,6 +112,8 @@
     },
     {
       "id": "00012",
+      "email": "ycostam456@gmail.com",
+      "avatar": null,
       "title": "Curabitur turpis turpis turpis vulputate id",
       "author": "David Bowie",
       "date": "2020-03-25",
@@ -98,6 +122,8 @@
     },
     {
       "id": "00013",
+      "email": "tcostam123@gmail.com",
+      "avatar": null,
       "title": "Vestibulum turpis turpis turpis turpis placerat",
       "author": "David Bowie",
       "date": "2020-04-25",
@@ -106,6 +132,8 @@
     },
     {
       "id": "00014",
+      "email": "ramozecostam@gmail.com",
+      "avatar": null,
       "title": "Curabitur turpis turpis vestibulum tristique",
       "author": "David Bowie",
       "date": "2020-04-27",
@@ -114,6 +142,8 @@
     },
     {
       "id": "00015",
+      "email": "ecostam456@gmail.com",
+      "avatar": null,
       "title": "Nullam turpis tellus",
       "author": "David Bowie",
       "date": "2020-05-21",
@@ -122,6 +152,8 @@
     },
     {
       "id": "00016",
+      "email": "wamozecostam@gmail.com",
+      "avatar": null,
       "title": "Lorem turpis turpis ipsum dolor",
       "author": "David Bowie",
       "date": "2020-03-11",
@@ -130,6 +162,8 @@
     },
     {
       "id": "00017",
+      "email": "qcostam123@gmail.com",
+      "avatar": null,
       "title": "Curabitur turpis turpis vulputate id",
       "author": "David Bowie",
       "date": "2020-03-25",
@@ -138,6 +172,8 @@
     },
     {
       "id": "00018",
+      "email": "costam456@gmail.com",
+      "avatar": null,
       "title": "Vestibulum turpis turpis placerat",
       "author": "David Bowie",
       "date": "2020-04-25",
@@ -146,6 +182,8 @@
     },
     {
       "id": "00019",
+      "email": "amozecostam@gmail.com",
+      "avatar": null,
       "title": "Curabitur turpis turpis vestibulum tristique",
       "author": "David Bowie",
       "date": "2020-04-27",
@@ -154,6 +192,8 @@
     },
     {
       "id": "00020",
+      "email": "costam456@gmail.com",
+      "avatar": null,
       "title": "Nullam turpis turpis turpis tellus",
       "author": "David Bowie",
       "date": "2020-05-21",

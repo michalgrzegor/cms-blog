@@ -2,6 +2,7 @@ import authorimg from '../../assets/img/authorimg.png';
 import twitter from '../../assets/img/twitter.png';
 import facebook from '../../assets/img/facebook.png';
 import commentlogo from '../../assets/img/commentlogo.png';
+import {blogPostReq} from '../auth/fetch';
 
 const createTitle = resJson => {
   const header = document.createElement('h1');
@@ -53,13 +54,13 @@ const createTag = element =>
 
 const appendElement = (el, paragraphContent, postContainer) => {
   const paragraph = document.createElement(createTag(el));
-  paragraph.innerText = paragraphContent;
+  paragraph.innerHTML = paragraphContent;
   postContainer.appendChild(paragraph);
 };
-// napisac reducera!!!!!!!!!!!
+
 const createPost = resJson => {
   console.log(resJson);
-  const bodyArray = resJson.content_in_json.ops;
+  const bodyArray = resJson.data.ops;
   const postContainer = document.querySelector('.article');
   let paragraphContent = '';
   bodyArray.forEach((el, index) => {
@@ -81,10 +82,22 @@ const createPost = resJson => {
   });
 };
 
-const createBlogPost = res => {
+const getPostId = () => new URLSearchParams(window.location.search).get('id');
+
+const getBlogPost = () => blogPostReq().makeGetBlogPost(getPostId());
+
+export const createBlogPost = res => {
+  console.log(res);
   createTitle(res);
   createAuthor(res);
   createPost(res);
 };
 
-export default createBlogPost;
+export const initBlogPost = () => {
+  console.log(`odpala`);
+  getBlogPost()
+    .then(res => res.json())
+    .then(res => createBlogPost(res));
+};
+
+// export default initBlogPost;

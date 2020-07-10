@@ -1,6 +1,9 @@
 import Quill from 'quill';
-import createBlogPost from '../../blog-post/blog-ui';
+import {createBlogPost} from '../../blog-post/blog-ui';
 import {blogPostReq} from '../../auth/fetch';
+import {createLoader} from '../../UI/loader';
+
+let editor;
 
 const options = {
   modules: {
@@ -18,35 +21,24 @@ const options = {
   theme: 'snow',
 };
 
-const introductionOptions = {
-  modules: {
-    toolbar: [['bold', 'italic', 'underline']],
-  },
-  placeholder: 'Post introduction',
-  theme: 'bubble',
-};
-
-const collectData = (editor, introductionEditor) => {
+const collectData = () => {
   const data = {
     author_name: 'Kupa Koń',
     post_date: '2020-02-11',
     title: '',
-    introduction: {
-      editor: 'Quill',
-      ops: [],
-    },
-    content_in_json: {
+    introduction: '',
+    data: {
       editor: 'Quill',
       ops: [],
     },
   };
   data.title = document.querySelector('#editor__title').value;
-  data.introduction.ops = introductionEditor.getContents().ops;
-  data.content_in_json.ops = editor.getContents().ops;
+  data.introduction = document.querySelector('.editor__textarea').value;
+  data.data.ops = editor.getContents().ops;
   return data;
 };
 
-const openPreview = (editor, introductionEditor) => {
+const openPreview = () => {
   const bgContainer = document.createElement('div');
   bgContainer.classList.add('preview__container');
   bgContainer.addEventListener('click', () => bgContainer.remove());
@@ -54,34 +46,69 @@ const openPreview = (editor, introductionEditor) => {
   previewArticle.classList.add('article');
   bgContainer.appendChild(previewArticle);
   document.body.appendChild(bgContainer);
-  const data = collectData(editor, introductionEditor);
+  const data = collectData(editor);
   createBlogPost(data);
 };
 
-const previewButton = (editor, introductionEditor) => {
-  const previeBtn = document.querySelectorAll('.editor__button')[1];
-  previeBtn.addEventListener('click', () => openPreview(editor, introductionEditor));
+const previewButton = () => {
+  const previeBtn = document.querySelectorAll('.editor__button')[2];
+  previeBtn.addEventListener('click', () => openPreview(editor));
 };
 
-const sendPost = (editor, introductionEditor) => {
+const redirectToBlogPost = response => {
+  window.location.href = `http://localhost:8080/blog-post.html?id=${response.id}`;
+};
+
+const sendPost = () => {
   const data = {
     title: document.querySelector('#editor__title').value,
-    introduction: introductionEditor.getContents().ops,
+    introduction: document.querySelector('.editor__textarea').value,
     data: {
       editor: 'Quill',
       ops: editor.getContents().ops,
     },
   };
   console.log(data);
+  createLoader(document.body);
   blogPostReq()
     .makePostBlogPost(data)
-    .then(r => r.json())
-    .then(r => console.log(r));
+    .then(r => {
+      const response = r.json();
+      console.log(response);
+      return response;
+    })
+    .then(r => redirectToBlogPost(r));
 };
 
-const submitButton = (editor, introductionEditor) => {
+const submitButton = () => {
+  const submitBtn = document.querySelectorAll('.editor__button')[1];
+  submitBtn.addEventListener('click', () => sendPost(editor));
+};
+
+const sendUpdate = id => {
+  const data = {
+    title: document.querySelector('#editor__title').value,
+    introduction: document.querySelector('.editor__textarea').value,
+    data: {
+      editor: 'Quill',
+      ops: editor.getContents().ops,
+    },
+  };
+  console.log(data);
+  createLoader(document.body);
+  blogPostReq()
+    .makeUpdateBlogPost(id, data)
+    .then(r => {
+      const response = r.json();
+      console.log(response);
+      return response;
+    })
+    .then(r => redirectToBlogPost(r));
+};
+
+const updateButton = id => {
   const submitBtn = document.querySelectorAll('.editor__button')[0];
-  submitBtn.addEventListener('click', () => sendPost(editor, introductionEditor));
+  submitBtn.addEventListener('click', () => sendUpdate(id));
 };
 
 const createError = message => {
@@ -92,17 +119,32 @@ const createError = message => {
   editorContainer[0].appendChild(paragraph);
 };
 
-const validateIntroduction = quillEditor => {
-  quillEditor.on('text-change', () => {
+const validateIntroduction = () => {
+  document.querySelector('.editor__textarea').addEventListener('input', () => {
     if (
       document.querySelector('.error') ||
-      (document.querySelector('.error') && quillEditor.getLength() < 201)
+      (document.querySelector('.error') &&
+        document.querySelector('.editor__textarea').value.length < 201)
     )
       document.querySelector('.error').remove();
-    if (quillEditor.getLength() > 201)
+    if (document.querySelector('.editor__textarea').value.length > 201)
       createError('Introduction is too long. The maximum number of characters is 200.');
     // if (quillEditor.getLength === 1) createError('you forgot about the introduction');
   });
+};
+
+const changeButton = id => {
+  document.querySelectorAll('.editor__button')[0].classList.toggle('btn--hidden');
+  document.querySelectorAll('.editor__button')[1].classList.toggle('btn--hidden');
+  updateButton(id);
+};
+
+export const loadDataToEditor = responseData => {
+  console.log(responseData);
+  changeButton(responseData.id);
+  document.querySelector('#editor__title').value = responseData.title;
+  document.querySelector('.editor__textarea').value = responseData.introduction;
+  editor.setContents(responseData.data);
 };
 
 const renderEditor = () => {
@@ -112,13 +154,12 @@ const renderEditor = () => {
   container.appendChild(templateClone);
 };
 
-const initEditor = () => {
+export const initEditor = () => {
   renderEditor();
-  const introductionEditor = new Quill('#subheading-editor', introductionOptions);
-  const editor = new Quill('#editor', options);
-  validateIntroduction(introductionEditor);
-  previewButton(editor, introductionEditor);
-  submitButton(editor, introductionEditor);
+  editor = new Quill('#editor', options);
+  previewButton(editor);
+  submitButton(editor);
+  validateIntroduction();
 };
 
 export default initEditor;

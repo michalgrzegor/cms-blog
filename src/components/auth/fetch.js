@@ -7,7 +7,6 @@ const URL = 'https://fierce-anchorage-12434.herokuapp.com/';
 export const TOKEN_HANDLER = new TokenHandler(null);
 
 const makeRequest = async (request, data) => {
-  console.log(request);
   if (TOKEN_HANDLER.getIsToken() && !TOKEN_HANDLER.getIsExpired()) {
     return request(data);
   }
@@ -82,8 +81,18 @@ const postBlogPost = ({postData}) => {
 };
 
 const getBlogPost = ({postId}) => {
-  return fetch(`${URL}quill_blog_posts/:${postId}`, {
+  return fetch(`${URL}quill_blog_posts/${postId}`, {
     method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${TOKEN_HANDLER.getToken()}`,
+    },
+  });
+};
+
+const deleteBlogPost = ({postId}) => {
+  return fetch(`${URL}quill_blog_posts/${postId}`, {
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${TOKEN_HANDLER.getToken()}`,
@@ -102,7 +111,7 @@ const getAllBlogPosts = () => {
 };
 
 const updateBlogPost = ({postId, postData}) => {
-  return fetch(`${URL}quill_blog_posts/:${postId}`, {
+  return fetch(`${URL}quill_blog_posts/${postId}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -115,16 +124,78 @@ const updateBlogPost = ({postId, postData}) => {
 export const blogPostReq = () => {
   return {
     makePostBlogPost: function (postData) {
-      return makeRequest(postBlogPost, {postData: postData});
+      return makeRequest(postBlogPost, {
+        postData: postData,
+      });
     },
     makeGetBlogPost: function (postId) {
-      return makeRequest(getBlogPost, {postId: postId});
+      return makeRequest(getBlogPost, {
+        postId: postId,
+      });
+    },
+    makeDeleteBlogPost: function (postId) {
+      return makeRequest(deleteBlogPost, {
+        postId: postId,
+      });
     },
     makeGetAllBlogPosts: function () {
       return makeRequest(getAllBlogPosts, null);
     },
     makeUpdateBlogPost: function (postId, postData) {
-      return makeRequest(updateBlogPost, {postId: postId, postData: postData});
+      return makeRequest(updateBlogPost, {
+        postId: postId,
+        postData: postData,
+      });
+    },
+  };
+};
+
+// get, update information about users
+
+const getUsers = () => {
+  return fetch(`${URL}user_profiles`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${TOKEN_HANDLER.getToken()}`,
+    },
+  });
+};
+
+const getUser = () => {
+  return fetch(`${URL}user_profile`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${TOKEN_HANDLER.getToken()}`,
+    },
+  });
+};
+
+const updateUser = ({userData}) => {
+  console.log(userData);
+  return fetch(`${URL}user_profile`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${TOKEN_HANDLER.getToken()}`,
+    },
+    body: JSON.stringify(userData),
+  });
+};
+
+export const usersReq = () => {
+  return {
+    makeGetUsers: function () {
+      return makeRequest(getUsers, null);
+    },
+    makeGetUser: function () {
+      return makeRequest(getUser, null);
+    },
+    makeUpdateUser: function (userData) {
+      return makeRequest(updateUser, {
+        userData: userData,
+      });
     },
   };
 };

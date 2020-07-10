@@ -90,6 +90,12 @@
           justify-content: flex-start;
           align-items: center;
 
+          img {
+            width: 3.4rem;
+            height: 3.4rem;
+            border-radius: 50%;
+          }
+
           .author__info {
             margin-left: 0.8rem;
 

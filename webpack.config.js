@@ -20,6 +20,7 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
+    index: 'index.html',
   },
   plugins: [
     new MiniCssExtractPlugin({

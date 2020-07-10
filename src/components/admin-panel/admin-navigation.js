@@ -1,7 +1,7 @@
 import initPostsManager from './admin-opt/post-manager';
 import initUsersManager from './admin-opt/users-manager';
 import initMyAccount from './admin-opt/account-manager';
-import initEditor from './admin-opt/quill-options';
+import {initEditor} from './admin-opt/quill-options';
 
 const changeActiveClass = (nodesArray, number) => {
   nodesArray.forEach(node => node.classList.remove('bg--color-active'));
@@ -27,8 +27,14 @@ const changeCategories = () => {
   });
 };
 
-const initAdminNav = () => {
-  changeCategories();
+export const changeToEditor = responseData => {
+  const categories = Array.from(document.querySelectorAll('.admin__categories h3'));
+  changeActiveClass(categories, 0);
+  removeCategories();
+  initEditor();
+  return responseData;
 };
 
-export default initAdminNav;
+export const initAdminNav = () => {
+  changeCategories();
+};

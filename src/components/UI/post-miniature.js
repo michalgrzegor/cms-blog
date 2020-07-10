@@ -20,16 +20,13 @@ export default class PostsMiniatures {
 
   generateMiniature(postMin) {
     const postTemplate = this.getPostTemplate();
-    const title = postTemplate.querySelector('.miniature__title');
-    title.textContent = postMin.title;
-    const author = postTemplate.querySelector('.author__name');
-    author.textContent = postMin.author;
-    const date = postTemplate.querySelector('.post__date');
-    date.textContent = postMin.date;
-    const intro = postTemplate.querySelector('.miniature__opening');
-    intro.textContent = postMin.intro;
-    const comments = postTemplate.querySelector('.post__comments');
-    comments.textContent = postMin.comments;
+    postTemplate.querySelector('.miniature__title').textContent = postMin.title;
+    postTemplate.querySelector('.author__name').textContent = postMin.author;
+    postTemplate.querySelector('.post__date').textContent = postMin.date;
+    postTemplate.querySelector('.miniature__opening').textContent = postMin.intro;
+    postTemplate.querySelector('.post__comments').textContent = postMin.comments;
+    postTemplate.querySelector('.miniature__author img').src =
+      postMin.avatar || `https://api.adorable.io/avatars/40/${postMin.email}.png`;
     postTemplate.querySelector('.miniature').setAttribute('postId', postMin.id);
     return postTemplate;
   }

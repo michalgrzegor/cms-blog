@@ -1,8 +1,8 @@
 const sortCallback = (a, b, sortVariable) => {
-  if (a[sortVariable] < b[sortVariable]) {
+  if (a[sortVariable].toLowerCase() < b[sortVariable].toLowerCase()) {
     return -1;
   }
-  if (a[sortVariable] > b[sortVariable]) {
+  if (a[sortVariable].toLowerCase() > b[sortVariable].toLowerCase()) {
     return 1;
   }
   return 0;
@@ -20,15 +20,15 @@ const setSortAttr = (elements, element, value) => {
 const sort = (elements, element, isSorted, sortVariable, postsArray, arrayName, mngType) => {
   let newArray = [];
   if (isSorted === 0) {
-    newArray = postsArray[arrayName].sort((a, b) => sortCallback(a, b, sortVariable));
+    newArray = postsArray.sort((a, b) => sortCallback(a, b, sortVariable));
     setSortAttr(elements, element, 1);
   }
   if (isSorted === 1) {
-    newArray = postsArray[arrayName].sort((a, b) => sortCallback(a, b, sortVariable)).reverse();
+    newArray = postsArray.sort((a, b) => sortCallback(a, b, sortVariable)).reverse();
     setSortAttr(elements, element, 2);
   }
   if (isSorted === 2) {
-    newArray = postsArray[arrayName].sort((a, b) => sortCallback(a, b, sortVariable));
+    newArray = postsArray.sort((a, b) => sortCallback(a, b, sortVariable));
     setSortAttr(elements, element, 1);
   }
   document.querySelector(`.${mngType}__table`).remove();
@@ -97,14 +97,21 @@ export const renderTable = (jsonArray, mngType) => {
     if (mngType === 'user') {
       row.querySelector(`.${mngType}__number`).innerText = jsonArray.indexOf(element) + 1;
       row.querySelector(`.${mngType}__author`).innerText = element.name;
-      row.querySelector(`.${mngType}__date`).innerText = element.date;
+      row.querySelector(`.${mngType}__date`).innerText = new Date(
+        element.last_update_date
+      ).toLocaleDateString();
     }
     if (mngType === 'post') {
       row.querySelector(`.${mngType}__number`).innerText = jsonArray.indexOf(element) + 1;
       row.querySelector(`.${mngType}__title`).innerText = element.title;
       row.querySelector(`.${mngType}__author`).innerText = element.author;
-      row.querySelector(`.${mngType}__date`).innerText = element.date;
+      row.querySelector(`.${mngType}__date`).innerText = new Date(
+        element.last_update_date
+      ).toLocaleDateString();
     }
+    Array.from(tempClone.querySelectorAll(`.${mngType}__btn`)).forEach(btn =>
+      btn.setAttribute(`${mngType}-id`, element.id)
+    );
     tableRowsContainer.appendChild(row);
   });
   container.insertBefore(tableRowsContainer, document.querySelector('.editor__buttons'));

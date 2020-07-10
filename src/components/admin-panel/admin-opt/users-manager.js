@@ -29,9 +29,11 @@ const renderTokenButton = mngType => {
 };
 
 const addBtnEvents = () => {
-  document.querySelector('.admin__container').addEventListener('click', event => {
-    if (true) console.log(event);
-  });
+  Array.from(document.querySelectorAll('.user__btn')).forEach(btn =>
+    btn.addEventListener('click', () => {
+      console.log(btn.getAttribute('user-id'));
+    })
+  );
 };
 
 const renderUsersManager = usersList => {

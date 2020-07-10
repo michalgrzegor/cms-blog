@@ -105,8 +105,13 @@
       padding: 1.2rem 0;
       color: $errorText;
     }
+
+    textarea {
+      resize: none;
+    }
   }
 
+  .account__edit,
   .editor__buttons {
     width: 100%;
     max-width: 96rem;
@@ -129,6 +134,10 @@
 
     .editor__button:active {
       background: $lightBackgroundGreyActive;
+    }
+
+    .btn--hidden {
+      display: none;
     }
   }
 
@@ -193,7 +202,9 @@
         z-index: 10;
 
         img {
+          padding: 0.4rem;
           opacity: 0.6;
+          border-radius: 50%;
         }
       }
 
@@ -259,6 +270,16 @@
 
   .hide {
     display: none;
+  }
+
+  .account__edit,
+  .account__data {
+    img {
+      width: 12.8rem;
+      height: 12.8rem;
+      border-radius: 50%;
+      margin-bottom: 1.2rem;
+    }
   }
 }
 
