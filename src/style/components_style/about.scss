@@ -21,11 +21,16 @@
       display: flex;
       flex-wrap: wrap;
 
+      .image__loader,
       .author__img {
         width: 6.4rem;
         height: 6.4rem;
         margin-right: 1.2rem;
         border-radius: 50%;
+      }
+
+      .author__img {
+        display: none;
       }
 
       .author__data {

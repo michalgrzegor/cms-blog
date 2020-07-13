@@ -12,6 +12,6 @@ const onLoad = () => {
 };
 
 const PM = new PostsMiniatures();
-PM.initPostsMiniatures();
+PM.initPostsMiniatures(1);
 
 onLoad();

@@ -1,5 +1,6 @@
 import {usersReq} from '../../auth/fetch';
 import {createLoader, removeLoader} from '../../UI/loader';
+import imageLoader from '../../UI/image-loader';
 
 const getTemplate = () => {
   const template = document.querySelector(`#account__template`);
@@ -100,11 +101,15 @@ const renderMyAccount = json => {
   template.querySelector('.account__email span').innerText = json.email;
   template.querySelector('.account__about span').innerText =
     json.about || 'write a few sentences about yourself';
-  template.querySelector('.account__edit img').src =
-    json.avatar_url || `https://api.adorable.io/avatars/128/${json.email}`;
-  template.querySelector('.account__data img').src =
-    json.avatar_url || `https://api.adorable.io/avatars/128/${json.email}`;
   addEvents(template);
+  imageLoader(
+    json.avatar_url || `https://api.adorable.io/avatars/128/${json.email}`,
+    template.querySelector('.account__edit')
+  );
+  imageLoader(
+    json.avatar_url || `https://api.adorable.io/avatars/128/${json.email}`,
+    template.querySelector('.account__data')
+  );
   container.appendChild(template);
   removeLoader();
 };

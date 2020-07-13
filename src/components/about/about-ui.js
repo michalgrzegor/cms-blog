@@ -1,4 +1,6 @@
 import {usersReq} from '../auth/fetch';
+import imageLoader from '../UI/image-loader';
+import {createLoader, removeLoader} from '../UI/loader';
 
 const getTemplate = () => {
   const temp = document.querySelector('#card__template');
@@ -11,8 +13,10 @@ const renderCard = author => {
   template.querySelector('.author__name').textContent = author.username;
   template.querySelector('.author__email').textContent = author.email;
   template.querySelector('.about__bio').textContent = author.about;
-  template.querySelector('.author__img').src =
-    author.avatar_url || `https://api.adorable.io/avatars/128/${author.email}`;
+  imageLoader(
+    author.avatar_url || `https://api.adorable.io/avatars/128/${author.email}`,
+    template.querySelector('.about__author')
+  );
   container.appendChild(template);
 };
 
@@ -21,10 +25,12 @@ const renderCards = response => {
 };
 
 const initAbout = () => {
+  createLoader(document.body);
   usersReq()
     .makeGetUsers()
     .then(r => r.json())
-    .then(r => renderCards(r));
+    .then(r => renderCards(r))
+    .then(() => removeLoader());
   // getAuthorsList().then(r => renderCards(r));
 };
 

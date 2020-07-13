@@ -199,3 +199,37 @@ export const usersReq = () => {
     },
   };
 };
+
+// get blog posts main page / pagination
+
+const getBlogPostsMainPage = () => {
+  return fetch(`${URL}blog_posts`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
+const getBlogPostsMainPageByNumber = ({pageNumb}) => {
+  console.log(pageNumb);
+  return fetch(`${URL}blog_posts?page=${pageNumb}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
+export const blogPostsMainPageReq = () => {
+  return {
+    makeGetBlogPostsMainPage: function () {
+      return makeRequest(getBlogPostsMainPage, null);
+    },
+    makeGetBlogPostsMainPageByNumber: function (pageNumb) {
+      return makeRequest(getBlogPostsMainPageByNumber, {
+        pageNumb: pageNumb,
+      });
+    },
+  };
+};

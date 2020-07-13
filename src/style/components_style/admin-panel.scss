@@ -274,11 +274,17 @@
 
   .account__edit,
   .account__data {
+
+    .image__loader,
     img {
       width: 12.8rem;
       height: 12.8rem;
       border-radius: 50%;
       margin-bottom: 1.2rem;
+    }
+
+    img {
+      display: none;
     }
   }
 }

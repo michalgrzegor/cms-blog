@@ -1,6 +1,7 @@
 @import '../shared/colors.scss';
 @import '../shared/mixins.scss';
 @import '../shared/loader.scss';
+@import '../shared/image-loader.scss';
 
 .blog__search {
   width: 100%;
@@ -57,10 +58,15 @@
     .miniature__img {
       overflow: hidden;
 
+      .image__loader,
       img {
         width: 20rem;
         height: 35rem;
         object-fit: cover;
+      }
+
+      img {
+        display: none;
       }
     }
 
@@ -90,10 +96,15 @@
           justify-content: flex-start;
           align-items: center;
 
+          .image__loader,
           img {
             width: 3.4rem;
             height: 3.4rem;
             border-radius: 50%;
+          }
+
+          img {
+            display: none;
           }
 
           .author__info {
@@ -141,6 +152,7 @@
     width: 30rem;
 
     .miniature__img {
+      .image__loader,
       img {
         width: 30rem;
         height: 15rem;
@@ -191,6 +203,7 @@
       width: 45.4rem;
 
       .miniature__img {
+        .image__loader,
         img {
           width: 20rem;
           height: 35rem;
@@ -228,6 +241,7 @@
       width: 90vw;
 
       .miniature__img {
+        .image__loader,
         img {
           width: 40vw;
         }
