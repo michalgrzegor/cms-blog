@@ -1,8 +1,9 @@
-import authorimg from '../../assets/img/authorimg.png';
 import twitter from '../../assets/img/twitter.png';
 import facebook from '../../assets/img/facebook.png';
 import commentlogo from '../../assets/img/commentlogo.png';
 import {blogPostReq} from '../auth/fetch';
+import {createLoader, removeLoader} from '../UI/loader';
+import imageLoader from '../UI/image-loader';
 
 const createTitle = resJson => {
   const header = document.createElement('h1');
@@ -15,12 +16,15 @@ const createAuthor = resJson => {
   const postContainer = document.querySelector('.article');
   const articleData = document.createElement('div');
   articleData.classList.add('article__data');
+  const date = new Date(resJson.last_update_date).toLocaleDateString();
+  const srcData =
+    resJson.author_avatar_url || `https://api.adorable.io/avatars/40/${resJson.author}.png`;
   const articleDataBody = `      
     <div class="article__author">
-      <img src="${authorimg}" class="article__author-avatar" alt="" />
+      <img src="${srcData}" class="article__author-avatar" alt="" />
       <div>
-        <div class="article__author-name">${resJson.author_name}</div>
-        <div class="article__date">${resJson.post_date}</div>
+        <div class="article__author-name">${resJson.author}</div>
+        <div class="article__date">${date}</div>
       </div>
     </div>
     <div class="articel__media">
@@ -58,6 +62,12 @@ const appendElement = (el, paragraphContent, postContainer) => {
   postContainer.appendChild(paragraph);
 };
 
+const appendImage = (src, postContainer) => {
+  const img = new Image();
+  img.src = src;
+  postContainer.appendChild(img);
+};
+
 const createPost = resJson => {
   console.log(resJson);
   const bodyArray = resJson.data.ops;
@@ -65,18 +75,22 @@ const createPost = resJson => {
   let paragraphContent = '';
   bodyArray.forEach((el, index) => {
     const isLast = index === bodyArray.length - 1;
-    if (el.insert !== '\n' && !el.attributes && !isLast) {
+    if (el.insert !== '\n' && !el.attributes && !isLast && !el.insert.image) {
       paragraphContent = `${paragraphContent}${el.insert}`;
-    } else if (el.insert !== '\n' && el.attributes && !isLast) {
+    } else if (el.insert !== '\n' && el.attributes && !isLast && !el.insert.image) {
       paragraphContent = `${paragraphContent}<span class="${createAtributesClasses(
         el.attributes
       )}">${el.insert}</span>`;
-    } else if (el.insert !== '\n' && !el.attributes && isLast) {
+    } else if (el.insert.image) {
+      if (paragraphContent) appendElement(el, paragraphContent, postContainer);
+      appendImage(el.insert.image, postContainer);
+      paragraphContent = '';
+    } else if (el.insert !== '\n' && !el.attributes && isLast && !el.insert.image) {
       paragraphContent = `${paragraphContent}${el.insert}`;
-      appendElement(el, paragraphContent, postContainer);
+      if (paragraphContent) appendElement(el, paragraphContent, postContainer);
       paragraphContent = '';
     } else {
-      appendElement(el, paragraphContent, postContainer);
+      if (paragraphContent) appendElement(el, paragraphContent, postContainer);
       paragraphContent = '';
     }
   });
@@ -94,10 +108,11 @@ export const createBlogPost = res => {
 };
 
 export const initBlogPost = () => {
-  console.log(`odpala`);
+  createLoader(document.body);
   getBlogPost()
     .then(res => res.json())
-    .then(res => createBlogPost(res));
+    .then(res => createBlogPost(res))
+    .then(() => removeLoader());
 };
 
 // export default initBlogPost;

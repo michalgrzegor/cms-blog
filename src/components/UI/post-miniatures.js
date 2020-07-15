@@ -22,6 +22,7 @@ export default class PostsMiniatures {
     postTemplate.querySelector('.miniature__opening').textContent = postMin.introduction;
     postTemplate.querySelector('.post__comments').textContent = postMin.comments;
     postTemplate.querySelector('.miniature').setAttribute('postId', postMin.id);
+    postTemplate.querySelector('.miniature').href = `./blog-post.html?id=${postMin.id}`;
     imageLoader(
       postMin.author_avatar_url || `https://api.adorable.io/avatars/40/${postMin.email}.png`,
       postTemplate.querySelector('.miniature__author')
@@ -38,6 +39,9 @@ export default class PostsMiniatures {
         this.generateMiniature(postMin),
         container.querySelector('.miniature__pages')
       )
+    );
+    Array.from(document.querySelectorAll('.miniature__page'))[this.pageNumber - 1].classList.add(
+      'font--weight-bold'
     );
   }
 
@@ -64,7 +68,6 @@ export default class PostsMiniatures {
       document
         .querySelectorAll('.miniature__page')
         .forEach(p => p.classList.remove('font--weight-bold'));
-      target.classList.add('font--weight-bold');
       this.pageNumber = Number(target.innerText);
       if (
         this.pageNumber === this.paginationNumber * 2 ||
@@ -85,7 +88,6 @@ export default class PostsMiniatures {
     const arrayOfPages = [...Array(Math.ceil(number / 10)).keys()];
     arrayOfPages.forEach(page => pagesContainer.appendChild(this.cratePage(page)));
     pagesContainer.addEventListener('click', e => this.changePage(e.target));
-    pagesContainer.querySelectorAll('p')[0].classList.add('font--weight-bold');
     container.appendChild(pagesContainer);
   }
 
@@ -117,8 +119,8 @@ export default class PostsMiniatures {
         removeLoader();
       });
     this.postMiniaturesArray = this.generateArrays(postMins);
-    this.renderPostsMin(this.postMiniaturesArray[0]);
     this.generatePages(postMins.blog_posts_count);
+    this.renderPostsMin(this.postMiniaturesArray[0]);
     this.searchPosts();
     removeLoader();
   }

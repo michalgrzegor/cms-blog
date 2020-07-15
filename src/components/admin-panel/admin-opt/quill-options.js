@@ -1,7 +1,7 @@
 import Quill from 'quill';
 import {createBlogPost} from '../../blog-post/blog-ui';
 import {blogPostReq} from '../../auth/fetch';
-import {createLoader} from '../../UI/loader';
+import {createLoader, removeLoader} from '../../UI/loader';
 
 let editor;
 
@@ -23,7 +23,7 @@ const options = {
 
 const collectData = () => {
   const data = {
-    author_name: 'Kupa Koń',
+    author_name: 'przykladowe imie',
     post_date: '2020-02-11',
     title: '',
     introduction: '',
@@ -77,7 +77,11 @@ const sendPost = () => {
       console.log(response);
       return response;
     })
-    .then(r => redirectToBlogPost(r));
+    .then(r => redirectToBlogPost(r))
+    .catch(err => {
+      console.log(err);
+      removeLoader();
+    });
 };
 
 const submitButton = () => {
@@ -99,6 +103,7 @@ const sendUpdate = id => {
   blogPostReq()
     .makeUpdateBlogPost(id, data)
     .then(r => {
+      console.log(r);
       const response = r.json();
       console.log(response);
       return response;

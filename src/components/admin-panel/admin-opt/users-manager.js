@@ -36,11 +36,18 @@ const addBtnEvents = () => {
   );
 };
 
+const addSortEvent = () => {
+  Array.from(document.querySelectorAll('p[sort]')).forEach(p =>
+    p.addEventListener('click', () => addBtnEvents())
+  );
+};
+
 const renderUsersManager = usersList => {
   mf.renderLegend('user', users, 'users');
   mf.renderTable(usersList.users, 'user');
   renderTokenButton('user');
   addBtnEvents();
+  addSortEvent();
 };
 
 const initUsersManager = () => {

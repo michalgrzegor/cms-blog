@@ -89,7 +89,6 @@ const handleToken = body => {
   body.then(res => {
     console.log(res);
     TOKEN_HANDLER.setTokens(res);
-    // createTokenHandlerInstance(res);
   });
   window.history.replaceState({}, null, '/admin-panel.html');
 };
@@ -111,11 +110,11 @@ const sendPostRequestForAccesToken = async query => {
     },
     body: JSON.stringify(params),
   })
-    .then(r => errorHandling(r, 'nie wyszło'))
+    .then(r => errorHandling(r, 'something went wrong, try again'))
     .then(response => {
       if (response.status === 200) handleToken(response.json());
     })
-    .catch(error => errorHandling(error, 'nie wyszło'));
+    .catch(error => errorHandling(error, 'something went wrong, try again'));
 };
 
 const handleSuccess = query => {
@@ -176,8 +175,8 @@ export const logout = async () => {
       },
     }
   )
-    .then(r => errorHandling(r, 'nie wyszło'))
+    .then(r => errorHandling(r, 'something went wrong, try again'))
     .then(response => handleLogout(response))
     .then(response => console.log(response))
-    .catch(error => errorHandling(error, 'nie wyszło'));
+    .catch(error => errorHandling(error, 'something went wrong, try again'));
 };

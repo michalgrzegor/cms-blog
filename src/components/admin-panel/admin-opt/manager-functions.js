@@ -86,6 +86,8 @@ const tableContainer = mngType => {
   return usersListContainer;
 };
 
+const truncate = str => `${str.substring(0, 34)}...`;
+
 export const renderTable = (jsonArray, mngType) => {
   const container = document.querySelector('.admin__container');
   const tableRowsContainer = tableContainer(mngType);
@@ -103,7 +105,8 @@ export const renderTable = (jsonArray, mngType) => {
     }
     if (mngType === 'post') {
       row.querySelector(`.${mngType}__number`).innerText = jsonArray.indexOf(element) + 1;
-      row.querySelector(`.${mngType}__title`).innerText = element.title;
+      row.querySelector(`.${mngType}__title`).innerText =
+        element.title.length > 35 ? truncate(element.title) : element.title;
       row.querySelector(`.${mngType}__author`).innerText = element.author;
       row.querySelector(`.${mngType}__date`).innerText = new Date(
         element.last_update_date

@@ -299,3 +299,68 @@
   left: 0;
   z-index: 2;
 }
+
+@media (max-width: 980px) {
+  .admin__navigation {
+
+    .admin__categories {
+      ul {
+        li {
+          width: 25%;
+
+          h3 {
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .admin__container {
+
+    .post__legend,
+    .post__row {
+
+      .post__number {
+        display: none;
+      }
+
+      .post__title {
+        width: 100%;
+      }
+
+      .post__author {
+        width: 20%;
+      }
+
+      .post__date {
+        width: 15%;
+      }
+
+      .post__btns {
+        width: 20%;
+      }
+    }
+
+    .user__legend,
+    .user__row {
+
+      .user__number {
+        width: 10%;
+      }
+
+      .user__author {
+        width: 45%;
+      }
+
+      .user__date {
+        width: 25%;
+      }
+
+      .user__btns {
+        width: 20%;
+      }
+    }
+  }
+
+}

@@ -36,6 +36,7 @@ const saveAccount = () => {
   if (document.querySelector('.input__about').value !== 'write a few sentences about yourself')
     about = document.querySelector('.input__about').value;
   createLoader(document.body);
+  console.log(base64Img);
   usersReq()
     .makeUpdateUser({
       username: document.querySelector('.input__name').value,

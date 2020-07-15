@@ -111,6 +111,7 @@ const getAllBlogPosts = () => {
 };
 
 const updateBlogPost = ({postId, postData}) => {
+  console.log(JSON.stringify(postData));
   return fetch(`${URL}quill_blog_posts/${postId}`, {
     method: 'PATCH',
     headers: {

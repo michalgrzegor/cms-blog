@@ -11,23 +11,33 @@ const removeTable = () => {
 const addBtnEvents = () => {
   Array.from(document.querySelectorAll('.btn--edit')).forEach(btn => {
     btn.addEventListener('click', () => {
+      createLoader(document.body);
       blogPostReq()
         .makeGetBlogPost(btn.getAttribute('post-id'))
         .then(r => r.json())
         .then(r => changeToEditor(r))
-        .then(r => loadDataToEditor(r));
+        .then(r => loadDataToEditor(r))
+        .then(() => removeLoader());
     });
   });
   Array.from(document.querySelectorAll('.btn--delete')).forEach(btn => {
     btn.addEventListener('click', () => {
+      createLoader(document.body);
       blogPostReq()
         .makeDeleteBlogPost(btn.getAttribute('post-id'))
         .then(r => r.json())
         .then(r => console.log(r))
         .then(() => removeTable())
-        .then(() => initPostsManager());
+        .then(() => initPostsManager())
+        .then(() => removeLoader());
     });
   });
+};
+
+const addSortEvent = () => {
+  Array.from(document.querySelectorAll('p[sort]')).forEach(p =>
+    p.addEventListener('click', () => addBtnEvents())
+  );
 };
 
 const renderPostsManager = postsList => {
@@ -35,6 +45,7 @@ const renderPostsManager = postsList => {
   _mf.renderLegend('post', postsList, 'posts');
   _mf.renderTable(postsList, 'post');
   addBtnEvents();
+  addSortEvent();
   removeLoader();
 };
 

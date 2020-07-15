@@ -13,9 +13,11 @@ export default class TokenHandler {
     localStorage.setItem('refresh_token', response.refresh_token);
     localStorage.setItem('refresh_token_created_at', response.created_at);
     localStorage.setItem('refresh_token_expired_time', response.expires_in);
+    this.setExpireTime();
   }
 
   setIsExpired() {
+    console.log(`odpalam setIsExpired`);
     if (localStorage.getItem('refresh_token')) {
       const tokenCreationTime = new Date(
         localStorage.getItem('refresh_token_created_at')
@@ -31,13 +33,14 @@ export default class TokenHandler {
   }
 
   setExpireTime() {
-    const tokenCreationTime = new Date(localStorage.getItem('refresh_token_created_at')).getTime();
+    const tokenCreationTime = Number(localStorage.getItem('refresh_token_created_at')) * 1000;
     const NowMs = new Date().getTime();
     const expTime = localStorage.getItem('refresh_token_expired_time') * 1000;
     if (NowMs - tokenCreationTime < expTime) {
       setTimeout(() => {
         this.isExpired = true;
-      }, expTime - NowMs + tokenCreationTime);
+        this.refreshToken();
+      }, expTime - NowMs + tokenCreationTime - 300000);
     }
   }
 
