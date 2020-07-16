@@ -7,7 +7,7 @@ export default class TokenHandler {
   }
 
   setTokens(response) {
-    console.log(`odpala`);
+    console.log(`odpala`, response);
     this.TOKEN = response.access_token;
     this.isExpired = false;
     localStorage.setItem('refresh_token', response.refresh_token);
@@ -31,11 +31,11 @@ export default class TokenHandler {
       (isAdminPanel && !localStorage.getItem('refresh_token')) ||
       (isAdminPanel && localStorage.getItem('refresh_token') === 'undefined')
     ) {
-      console.log(`zrob coś`);
-      // localStorage.removeItem('refresh_token');
-      // localStorage.removeItem('refresh_token_created_at');
-      // localStorage.removeItem('refresh_token_expired_time');
-      // window.location.href = 'http://localhost:8080/index.html';
+      console.log(`zrob coś ====================>`);
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('refresh_token_created_at');
+      localStorage.removeItem('refresh_token_expired_time');
+      window.location.href = 'http://localhost:8080/index.html';
     } else {
       this.isExpired = true;
     }

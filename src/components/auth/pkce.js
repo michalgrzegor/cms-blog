@@ -86,10 +86,7 @@ export const errorHandling = (response, message = null) => {
 };
 
 const handleToken = body => {
-  body.then(res => {
-    console.log(res);
-    TOKEN_HANDLER.setTokens(res);
-  });
+  TOKEN_HANDLER.setTokens(body);
   window.history.replaceState({}, null, '/admin-panel.html');
 };
 
@@ -104,7 +101,7 @@ const sendPostRequestForAccesToken = async query => {
     code_verifier: localStorage.getItem('pkce_code_verifier'),
     client_secret: CONFIG.client_secret,
   };
-  fetch(`${URL}${CONFIG.token_endpoint}`, {
+  return fetch(`${URL}${CONFIG.token_endpoint}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -112,29 +109,34 @@ const sendPostRequestForAccesToken = async query => {
     body: JSON.stringify(params),
   })
     .then(r => errorHandling(r, 'something went wrong, try again'))
-    .then(response => {
-      const res = response.json();
-      console.log(res);
-      if (response.status === 200) handleToken(res);
+    .then(r => r.json())
+    .then(r => {
+      if (r.access_token) handleToken(r);
     })
     .catch(error => errorHandling(error, 'something went wrong, try again'));
 };
 
-const handleSuccess = query => {
-  if (localStorage.getItem('pkce_state') !== query.state) {
-    showSnackBar('Invalid state');
-  } else {
-    sendPostRequestForAccesToken(query);
-  }
-  localStorage.removeItem('pkce_state');
-  localStorage.removeItem('pkce_code_verifier');
-};
+const handleSuccess = query =>
+  new Promise((resolve, reject) => {
+    if (localStorage.getItem('pkce_state') !== query.state) {
+      showSnackBar('Invalid state');
+      localStorage.removeItem('pkce_state');
+      localStorage.removeItem('pkce_code_verifier');
+      reject();
+    } else {
+      sendPostRequestForAccesToken(query).then(() => {
+        localStorage.removeItem('pkce_state');
+        localStorage.removeItem('pkce_code_verifier');
+        resolve();
+      });
+    }
+  });
 
 export const handleRedirect = () =>
   new Promise((resolve, reject) => {
     const query = parseQueryString(window.location.search.substring(1));
     if (query.code) {
-      resolve(handleSuccess(query));
+      handleSuccess(query).then(() => resolve());
     }
     if (!window.location.search.substring(1)) resolve();
     if (query.error) reject(showSnackBar(query.error));

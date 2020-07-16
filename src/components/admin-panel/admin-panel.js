@@ -13,7 +13,6 @@ const onLoad = () => {
     initEditor();
     initAdminNav();
     handleRedirect().then(() => TOKEN_HANDLER.setIsExpired(true));
-    // TOKEN_HANDLER.setIsExpired(true);
   });
 };
 onLoad();

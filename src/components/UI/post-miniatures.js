@@ -28,7 +28,10 @@ export default class PostsMiniatures {
       postMin.author_avatar_url || `https://api.adorable.io/avatars/40/${postMin.email}.png`,
       postTemplate.querySelector('.miniature__author')
     );
-    imageLoader('https://picsum.photos/900', postTemplate.querySelector('.miniature__img'));
+    imageLoader(
+      postMin.main_image_url || 'https://picsum.photos/900',
+      postTemplate.querySelector('.miniature__img')
+    );
     return postTemplate;
   }
 
