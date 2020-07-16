@@ -1,7 +1,7 @@
 import twitter from '../../assets/img/twitter.png';
 import facebook from '../../assets/img/facebook.png';
 import commentlogo from '../../assets/img/commentlogo.png';
-import {blogPostReq} from '../auth/fetch';
+import {blogPostsMainPageReq} from '../auth/fetch';
 import {createLoader, removeLoader} from '../UI/loader';
 import imageLoader from '../UI/image-loader';
 
@@ -98,7 +98,7 @@ const createPost = resJson => {
 
 const getPostId = () => new URLSearchParams(window.location.search).get('id');
 
-const getBlogPost = () => blogPostReq().makeGetBlogPost(getPostId());
+const getBlogPost = () => blogPostsMainPageReq().makeGetBlogPostMainPage(getPostId());
 
 export const createBlogPost = res => {
   console.log(res);

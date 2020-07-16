@@ -6,6 +6,13 @@ const URL = 'https://fierce-anchorage-12434.herokuapp.com/';
 
 export const TOKEN_HANDLER = new TokenHandler(null);
 
+const checkError = response => {
+  if (response.status >= 200 && response.status <= 299) {
+    return response.json();
+  }
+  throw Error(`moj error: ${response.statusText}`);
+};
+
 const makeRequest = async (request, data) => {
   if (TOKEN_HANDLER.getIsToken() && !TOKEN_HANDLER.getIsExpired()) {
     return request(data);
@@ -212,6 +219,15 @@ const getBlogPostsMainPage = () => {
   });
 };
 
+const getBlogPostMainPage = ({id}) => {
+  return fetch(`${URL}blog_posts/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
 const getBlogPostsMainPageByNumber = ({pageNumb}) => {
   console.log(pageNumb);
   return fetch(`${URL}blog_posts?page=${pageNumb}`, {
@@ -225,10 +241,15 @@ const getBlogPostsMainPageByNumber = ({pageNumb}) => {
 export const blogPostsMainPageReq = () => {
   return {
     makeGetBlogPostsMainPage: function () {
-      return makeRequest(getBlogPostsMainPage, null);
+      return getBlogPostsMainPage();
+    },
+    makeGetBlogPostMainPage: function (id) {
+      return getBlogPostMainPage({
+        id: id,
+      });
     },
     makeGetBlogPostsMainPageByNumber: function (pageNumb) {
-      return makeRequest(getBlogPostsMainPageByNumber, {
+      return getBlogPostsMainPageByNumber({
         pageNumb: pageNumb,
       });
     },

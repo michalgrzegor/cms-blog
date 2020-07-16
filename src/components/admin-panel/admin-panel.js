@@ -7,13 +7,13 @@ import NavigationBar from '../navigation-bar/navigation';
 import {initEditor} from './admin-opt/quill-options';
 import {initAdminNav} from './admin-navigation';
 
-window.customElements.define('navigation-bar', NavigationBar);
 const onLoad = () => {
+  window.customElements.define('navigation-bar', NavigationBar);
   window.addEventListener('load', () => {
-    handleRedirect();
     initEditor();
-    TOKEN_HANDLER.setIsExpired();
+    initAdminNav();
+    handleRedirect().then(() => TOKEN_HANDLER.setIsExpired(true));
+    // TOKEN_HANDLER.setIsExpired(true);
   });
 };
 onLoad();
-initAdminNav();

@@ -8,7 +8,7 @@ window.customElements.define('navigation-bar', NavigationBar);
 const onLoad = () => {
   window.addEventListener('load', () => {
     initBlogPost();
-    TOKEN_HANDLER.setIsExpired();
+    TOKEN_HANDLER.setIsExpired(false);
   });
 };
 

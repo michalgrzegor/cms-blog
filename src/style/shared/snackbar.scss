@@ -1,6 +1,6 @@
 .snackbar {
   background: $backgroundDarkGrey;
-  position: absolute;
+  position: fixed;
   bottom: 2.4rem;
   left: calc(50vw - 16rem);
   width: 32rem;

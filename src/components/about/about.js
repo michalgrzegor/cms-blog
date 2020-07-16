@@ -7,7 +7,7 @@ window.customElements.define('navigation-bar', NavigationBar);
 
 const onLoad = () => {
   window.addEventListener('load', () => {
-    TOKEN_HANDLER.setIsExpired();
+    TOKEN_HANDLER.setIsExpired(false);
     initAbout();
   });
 };

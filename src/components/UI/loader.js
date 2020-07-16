@@ -1,5 +1,4 @@
 export const createLoader = parrent => {
-  console.log(parrent);
   const loader = document.createElement('div');
   loader.id = 'loader';
   parrent.appendChild(loader);

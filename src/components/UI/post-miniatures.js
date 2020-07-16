@@ -1,6 +1,7 @@
 import {createLoader, removeLoader} from './loader';
 import {blogPostsMainPageReq} from '../auth/fetch';
 import imageLoader from './image-loader';
+import showSnackBar from './snackbar';
 
 export default class PostsMiniatures {
   constructor() {
@@ -115,7 +116,7 @@ export default class PostsMiniatures {
       .makeGetBlogPostsMainPageByNumber(number)
       .then(r => r.json())
       .catch(err => {
-        console.log(err);
+        showSnackBar('something went wrong, try again');
         removeLoader();
       });
     this.postMiniaturesArray = this.generateArrays(postMins);

@@ -1,6 +1,14 @@
 import {usersReq} from '../../auth/fetch';
 import {createLoader, removeLoader} from '../../UI/loader';
 import imageLoader from '../../UI/image-loader';
+import showSnackBar from '../../UI/snackbar';
+
+const checkError = response => {
+  if (response.status >= 200 && response.status <= 299) {
+    return response;
+  }
+  throw Error(`moj error: ${response.statusText}`);
+};
 
 const getTemplate = () => {
   const template = document.querySelector(`#account__template`);
@@ -48,8 +56,8 @@ const saveAccount = () => {
     .then(r => r.json())
     .then(r => renderMyAccount(r))
     .catch(err => {
+      showSnackBar('something went wrong, try again');
       removeLoader();
-      console.log(err);
     });
 };
 
@@ -119,8 +127,13 @@ const initMyAccount = () => {
   createLoader(document.body);
   usersReq()
     .makeGetUser()
+    .then(checkError)
     .then(r => r.json())
-    .then(r => renderMyAccount(r));
+    .then(r => renderMyAccount(r))
+    .catch(err => {
+      showSnackBar('something went wrong, try again');
+      removeLoader();
+    });
 };
 
 export default initMyAccount;

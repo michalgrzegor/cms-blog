@@ -3,6 +3,7 @@ import {blogPostReq} from '../../auth/fetch';
 import {createLoader, removeLoader} from '../../UI/loader';
 import {changeToEditor} from '../admin-navigation';
 import {loadDataToEditor} from './quill-options';
+import showSnackBar from '../../UI/snackbar';
 
 const removeTable = () => {
   document.querySelector('main').innerHTML = '';
@@ -17,7 +18,11 @@ const addBtnEvents = () => {
         .then(r => r.json())
         .then(r => changeToEditor(r))
         .then(r => loadDataToEditor(r))
-        .then(() => removeLoader());
+        .then(() => removeLoader())
+        .catch(err => {
+          showSnackBar('something went wrong, try again');
+          removeLoader();
+        });
     });
   });
   Array.from(document.querySelectorAll('.btn--delete')).forEach(btn => {
@@ -29,7 +34,11 @@ const addBtnEvents = () => {
         .then(r => console.log(r))
         .then(() => removeTable())
         .then(() => initPostsManager())
-        .then(() => removeLoader());
+        .then(() => removeLoader())
+        .catch(err => {
+          showSnackBar('something went wrong, try again');
+          removeLoader();
+        });
     });
   });
 };
@@ -54,7 +63,11 @@ const initPostsManager = () => {
   blogPostReq()
     .makeGetAllBlogPosts()
     .then(response => response.json())
-    .then(posts => renderPostsManager(posts));
+    .then(posts => renderPostsManager(posts))
+    .catch(err => {
+      showSnackBar('something went wrong, try again');
+      removeLoader();
+    });
 };
 
 export default initPostsManager;

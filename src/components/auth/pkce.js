@@ -95,6 +95,7 @@ const handleToken = body => {
 
 // Make a POST request and parse the response as JSON
 const sendPostRequestForAccesToken = async query => {
+  console.log(`wysyła po tokena`);
   const params = {
     grant_type: 'authorization_code',
     code: query.code,
@@ -112,7 +113,9 @@ const sendPostRequestForAccesToken = async query => {
   })
     .then(r => errorHandling(r, 'something went wrong, try again'))
     .then(response => {
-      if (response.status === 200) handleToken(response.json());
+      const res = response.json();
+      console.log(res);
+      if (response.status === 200) handleToken(res);
     })
     .catch(error => errorHandling(error, 'something went wrong, try again'));
 };
@@ -127,11 +130,15 @@ const handleSuccess = query => {
   localStorage.removeItem('pkce_code_verifier');
 };
 
-export const handleRedirect = () => {
-  const query = parseQueryString(window.location.search.substring(1));
-  if (query.error) showSnackBar(query.error);
-  if (query.code) handleSuccess(query);
-};
+export const handleRedirect = () =>
+  new Promise((resolve, reject) => {
+    const query = parseQueryString(window.location.search.substring(1));
+    if (query.code) {
+      resolve(handleSuccess(query));
+    }
+    if (!window.location.search.substring(1)) resolve();
+    if (query.error) reject(showSnackBar(query.error));
+  });
 
 // Refresh Token
 

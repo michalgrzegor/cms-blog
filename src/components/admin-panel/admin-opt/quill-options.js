@@ -2,6 +2,7 @@ import Quill from 'quill';
 import {createBlogPost} from '../../blog-post/blog-ui';
 import {blogPostReq} from '../../auth/fetch';
 import {createLoader, removeLoader} from '../../UI/loader';
+import showSnackBar from '../../UI/snackbar';
 
 let editor;
 
@@ -79,7 +80,7 @@ const sendPost = () => {
     })
     .then(r => redirectToBlogPost(r))
     .catch(err => {
-      console.log(err);
+      showSnackBar('something went wrong, try again');
       removeLoader();
     });
 };
@@ -108,7 +109,11 @@ const sendUpdate = id => {
       console.log(response);
       return response;
     })
-    .then(r => redirectToBlogPost(r));
+    .then(r => redirectToBlogPost(r))
+    .catch(err => {
+      showSnackBar('something went wrong, try again');
+      removeLoader();
+    });
 };
 
 const updateButton = id => {
