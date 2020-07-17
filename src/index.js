@@ -8,6 +8,7 @@ const onLoad = () => {
   window.customElements.define('navigation-bar', NavigationBar);
   const PM = new PostsMiniatures();
   PM.initPostsMiniatures(1);
+  PM.searchPosts();
   window.addEventListener('load', () => {
     TOKEN_HANDLER.setIsExpired(false);
   });

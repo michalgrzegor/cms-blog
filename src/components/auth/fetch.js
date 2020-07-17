@@ -255,3 +255,24 @@ export const blogPostsMainPageReq = () => {
     },
   };
 };
+
+// search blog posts
+
+const searchBlogPosts = ({searchData}) => {
+  console.log(searchData);
+  return fetch(`${URL}blog_post_searches`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(searchData),
+  });
+};
+
+export const searchBlogPostsReq = () => {
+  return {
+    makeSearchBlogPosts: function (searchData) {
+      return searchBlogPosts({searchData: searchData});
+    },
+  };
+};

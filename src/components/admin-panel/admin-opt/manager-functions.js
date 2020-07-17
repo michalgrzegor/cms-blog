@@ -6,6 +6,7 @@ import showSnackBar from '../../UI/snackbar';
 
 export default class ManagerFunctions {
   constructor() {
+    this.entryList = [];
     this.list = [];
     this.renderedList = [];
     this.pageNumber = 1;
@@ -127,9 +128,11 @@ export default class ManagerFunctions {
   }
 
   search(value) {
-    this.renderedList = [
-      ...this.list.filter(el => el.title.toLowerCase().includes(value.toLowerCase())),
+    const key = this.mngType === 'post' ? 'title' : 'username';
+    const newList = [
+      ...this.entryList.filter(el => el[key].toLowerCase().includes(value.toLowerCase())),
     ];
+    this.setLists(newList, this.mngType, this.arrayName);
     document.querySelector(`.${this.mngType}__table`).remove();
     this.renderTable();
   }
@@ -157,6 +160,7 @@ export default class ManagerFunctions {
 
   renderLegend(mngType, json, arrayName) {
     this.setLists(json, mngType, arrayName);
+    this.entryList = json;
     const container = document.querySelector('.admin__container');
     const templateClone = this.getTemplate();
     const search = templateClone.querySelector(`.${this.mngType}__search`);

@@ -1,5 +1,5 @@
 import {createLoader, removeLoader} from './loader';
-import {blogPostsMainPageReq} from '../auth/fetch';
+import {blogPostsMainPageReq, searchBlogPostsReq} from '../auth/fetch';
 import imageLoader from './image-loader';
 import showSnackBar from './snackbar';
 
@@ -8,6 +8,7 @@ export default class PostsMiniatures {
     this.postMiniaturesArray = [];
     this.paginationNumber = undefined;
     this.pageNumber = 1;
+    this.isSearchMode = false;
   }
 
   getPostTemplate() {
@@ -80,12 +81,16 @@ export default class PostsMiniatures {
         this.renderPostsMin(this.postMiniaturesArray[Number(target.innerText) - 1]);
       } else {
         document.querySelector('.miniature__pages').remove();
-        this.initPostsMiniatures(Math.ceil(this.pageNumber / 2));
+        if (!this.isSearchMode) this.initPostsMiniatures(Math.ceil(this.pageNumber / 2));
+        if (this.isSearchMode)
+          this.getSearchRequest(this.query, Math.ceil(this.pageNumber / 2), this.pageNumber);
       }
     }
   }
 
   generatePages(number) {
+    if (document.querySelector('.miniature__pages'))
+      document.querySelector('.miniature__pages').remove();
     const container = document.querySelector('.container');
     const pagesContainer = document.createElement('div');
     pagesContainer.classList.add('miniature__pages');
@@ -95,10 +100,32 @@ export default class PostsMiniatures {
     container.appendChild(pagesContainer);
   }
 
-  getSearchRequest(query) {
-    document.querySelector('.container').innerHTML = '';
-    createLoader(document.querySelector('.container'));
-    console.log(query);
+  async getSearchRequest(query, number, pageNumber) {
+    this.query = query;
+    this.isSearchMode = query !== '';
+    this.paginationNumber = number;
+    this.pageNumber = pageNumber;
+    if (this.isSearchMode) {
+      document.querySelector('.container').innerHTML = '';
+      createLoader(document.querySelector('.container'));
+      const postMins = await searchBlogPostsReq()
+        .makeSearchBlogPosts({
+          search: query,
+          page: number,
+        })
+        .then(r => r.json());
+      console.log(postMins);
+      if (postMins.blog_posts.length > 0) {
+        this.postMiniaturesArray = this.generateArrays(postMins);
+        this.generatePages(postMins.blog_posts_count);
+        this.renderPostsMin(this.postMiniaturesArray[0]);
+      }
+      removeLoader();
+    }
+    if (!this.isSearchMode) {
+      this.pageNumber = 1;
+      this.initPostsMiniatures(1);
+    }
   }
 
   searchPosts() {
@@ -107,7 +134,7 @@ export default class PostsMiniatures {
     input.addEventListener('input', () => {
       window.clearTimeout(timer);
       timer = setTimeout(() => {
-        this.getSearchRequest(input.value);
+        this.getSearchRequest(input.value, 1, 1);
       }, 1000);
     });
   }
@@ -122,10 +149,11 @@ export default class PostsMiniatures {
         showSnackBar('something went wrong, try again');
         removeLoader();
       });
-    this.postMiniaturesArray = this.generateArrays(postMins);
-    this.generatePages(postMins.blog_posts_count);
-    this.renderPostsMin(this.postMiniaturesArray[0]);
-    this.searchPosts();
+    if (postMins.blog_posts.length > 0) {
+      this.postMiniaturesArray = this.generateArrays(postMins);
+      this.generatePages(postMins.blog_posts_count);
+      this.renderPostsMin(this.postMiniaturesArray[0]);
+    }
     removeLoader();
   }
 }
