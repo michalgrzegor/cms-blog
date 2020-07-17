@@ -35,7 +35,7 @@ export default class TokenHandler {
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('refresh_token_created_at');
       localStorage.removeItem('refresh_token_expired_time');
-      window.location.href = 'http://localhost:8080/index.html';
+      window.location.href = 'https://musing-ramanujan-8002a4.netlify.app/index.html';
     } else {
       this.isExpired = true;
     }
