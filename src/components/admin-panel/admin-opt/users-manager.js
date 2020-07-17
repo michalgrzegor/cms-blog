@@ -1,13 +1,7 @@
-import users from '../jsons/users.json';
-import * as mf from './manager-functions';
-import {generateToken} from '../../auth/fetch';
+import {generateToken, usersReq} from '../../auth/fetch';
+import ManagerFunctions from './manager-functions';
 
-const getUsersList = async () => {
-  return new Promise((resolve, reject) => {
-    resolve(users);
-    reject(new Error(`spartoliło się`));
-  });
-};
+const mf = new ManagerFunctions();
 
 const displayToken = async () => {
   const token = await generateToken().then(r => r.json());
@@ -28,30 +22,17 @@ const renderTokenButton = mngType => {
   container.appendChild(btns);
 };
 
-const addBtnEvents = () => {
-  Array.from(document.querySelectorAll('.user__btn')).forEach(btn =>
-    btn.addEventListener('click', () => {
-      console.log(btn.getAttribute('user-id'));
-    })
-  );
-};
-
-const addSortEvent = () => {
-  Array.from(document.querySelectorAll('p[sort]')).forEach(p =>
-    p.addEventListener('click', () => addBtnEvents())
-  );
-};
-
 const renderUsersManager = usersList => {
-  mf.renderLegend('user', users, 'users');
-  mf.renderTable(usersList.users, 'user');
+  mf.renderLegend('user', usersList);
+  mf.renderTable();
   renderTokenButton('user');
-  addBtnEvents();
-  addSortEvent();
 };
 
 const initUsersManager = () => {
-  getUsersList().then(p => renderUsersManager(p));
+  usersReq()
+    .makeGetUsers()
+    .then(r => r.json())
+    .then(r => renderUsersManager(r));
 };
 
 export default initUsersManager;

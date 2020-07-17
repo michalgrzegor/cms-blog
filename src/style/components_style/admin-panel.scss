@@ -111,6 +111,39 @@
     }
   }
 
+  .post__search,
+  .user__search {
+    width: 100%;
+    text-align: center;
+    padding: 2.4rem 0;
+    position: relative;
+
+    input {
+      box-sizing: border-box;
+      border: none;
+      outline: none;
+      height: 4.6rem;
+      @include textOpenSansLight(1.6rem, $headerText);
+      padding: 1.2rem 4.8rem 1.2rem 1.2rem;
+      max-width: 36rem;
+      width: 100%;
+    }
+
+    input:focus,
+    input:active {
+      border: 1px solid $boldText;
+    }
+
+    img {
+      width: 2.4rem;
+      height: 2.4rem;
+      position: absolute;
+      top: 3.6rem;
+      margin-left: -3.6rem;
+      opacity: 0.3;
+    }
+  }
+
   .account__edit,
   .editor__buttons {
     width: 100%;
@@ -298,6 +331,21 @@
   top: 0;
   left: 0;
   z-index: 2;
+}
+
+.pages__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  p {
+    padding: 2.4rem .6rem;
+    cursor: pointer;
+  }
+
+  .text--bold {
+    font-weight: 700;
+  }
 }
 
 @media (max-width: 980px) {

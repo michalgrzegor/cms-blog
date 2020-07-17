@@ -52,6 +52,10 @@
   </div>
 </template>
 <template id="post__template">
+  <div class="post__search">
+    <input type="text" />
+    <img src="../../assets/svg/search.svg" alt="search button" />
+  </div>
   <div class="post__legend">
     <p class="post__number">num</p>
     <p sorted="0" sort="title" class="post__title">title</p>
@@ -77,9 +81,13 @@
   </div>
 </template>
 <template id="user__template">
+  <div class="user__search">
+    <input type="text" />
+    <img src="../../assets/svg/search.svg" alt="search button" />
+  </div>
   <div class="user__legend">
     <p class="user__number">num</p>
-    <p sorted="0" sort="name" class="user__author">name</p>
+    <p sorted="0" sort="username" class="user__author">name</p>
     <p sorted="0" sort="last_update_date" class="user__date">date</p>
     <div class="user__btns">
       <p>options</p>
