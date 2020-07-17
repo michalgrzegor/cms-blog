@@ -24,8 +24,8 @@ const options = {
 
 const collectData = () => {
   const data = {
-    author_name: 'przykladowe imie',
-    post_date: '2020-02-11',
+    author: 'przykladowe imie',
+    last_update_date: new Date(),
     title: '',
     introduction: '',
     data: {

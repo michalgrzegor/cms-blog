@@ -225,8 +225,9 @@ export default class ManagerFunctions {
           this.renderedList.indexOf(element) + 1 + this.pageNumber * 10 - 10;
         row.querySelector(`.${this.mngType}__author`).innerText = element.username;
         row.querySelector(`.${this.mngType}__date`).innerText = new Date(
-          element.last_update_date
+          element.created_at
         ).toLocaleDateString();
+        row.querySelector(`.${this.mngType}__email`).innerText = element.email;
       }
       if (this.mngType === 'post') {
         row.querySelector(`.${this.mngType}__number`).innerText =
@@ -243,11 +244,8 @@ export default class ManagerFunctions {
       );
       tableRowsContainer.appendChild(row);
     });
-    this.mngType === 'post'
-      ? this.addPostsBtnEvents(tableRowsContainer)
-      : this.addUsersBtnEvents(tableRowsContainer);
+    if (this.mngType === 'post') this.addPostsBtnEvents(tableRowsContainer);
     container.insertBefore(tableRowsContainer, document.querySelector('.editor__buttons'));
-    // container.insertBefore(this.renderPages(), document.querySelector('.editor__buttons'));
     this.renderPages();
   }
 }

@@ -219,12 +219,14 @@
       width: 15%;
     }
 
-    .user__btns,
+    .user__email {
+      width: 30%;
+    }
+
     .post__btns {
       text-align: end;
       width: 10%;
 
-      .user__btn,
       .post__btn {
         width: 3.2rem;
         height: 3.2rem;
@@ -241,12 +243,10 @@
         }
       }
 
-      .user__btn:hover,
       .post__btn:hover {
         background: $lightBackgroundGreyHover;
       }
 
-      .user__btn:active,
       .post__btn:active {
         background: $lightBackgroundGreyActive;
       }
@@ -266,7 +266,6 @@
       cursor: pointer;
     }
 
-    .user__btns,
     .post__btns {
       p {
         cursor: initial;
@@ -394,19 +393,19 @@
     .user__row {
 
       .user__number {
-        width: 10%;
+        display: none;
       }
 
       .user__author {
-        width: 45%;
+        width: 50%;
       }
 
       .user__date {
-        width: 25%;
+        width: 50%;
       }
 
-      .user__btns {
-        width: 20%;
+      .user__email {
+        width: 100%;
       }
     }
   }
