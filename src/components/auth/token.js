@@ -22,6 +22,7 @@ export default class TokenHandler {
       localStorage.getItem('refresh_token') &&
       localStorage.getItem('refresh_token') !== 'undefined'
     ) {
+      console.log(`pierwszy typ`);
       const tokenCreationTime = Number(localStorage.getItem('refresh_token_created_at')) * 1000;
       const NowMs = new Date().getTime();
       const expTime = localStorage.getItem('refresh_token_expired_time') * 1000;
@@ -37,6 +38,7 @@ export default class TokenHandler {
       localStorage.removeItem('refresh_token_expired_time');
       window.location.href = 'https://musing-ramanujan-8002a4.netlify.app/index.html';
     } else {
+      console.log(`trzeci typ`);
       this.isExpired = true;
     }
   }
