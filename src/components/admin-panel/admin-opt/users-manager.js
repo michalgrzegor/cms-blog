@@ -23,8 +23,10 @@ const renderTokenButton = mngType => {
 };
 
 const renderUsersManager = usersList => {
-  mf.renderLegend('user', usersList);
-  mf.renderTable();
+  if (usersList.length > 0) {
+    mf.renderLegend('user', usersList);
+    mf.renderTable();
+  }
   renderTokenButton('user');
 };
 

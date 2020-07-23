@@ -13,7 +13,6 @@ const switchForm = () => {
 
 const renderForm = formName => {
   if (formName === 'form__login') {
-    console.log(formName);
     login();
   } else {
     const container = document.querySelector('.auth__form');
@@ -25,7 +24,6 @@ const renderForm = formName => {
         validation.validate(input.value, input.type, input.id);
       });
       input.addEventListener('focus', () => {
-        console.log(`focus`);
         validation.removeError(input.id);
       });
     });

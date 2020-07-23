@@ -52,7 +52,6 @@ export default class PostsMiniatures {
 
   generateArrays(postMins) {
     const postMiniaturesArray = [];
-    console.log(postMins);
     const ite = Math.ceil(postMins.blog_posts.length / 10);
     for (let i = 0; i < ite; i += 1) {
       const ar = postMins.blog_posts.slice(i * 10, i * 10 + 10);
@@ -114,7 +113,6 @@ export default class PostsMiniatures {
           page: number,
         })
         .then(r => r.json());
-      console.log(postMins);
       if (postMins.blog_posts.length > 0) {
         this.postMiniaturesArray = this.generateArrays(postMins);
         this.generatePages(postMins.blog_posts_count);

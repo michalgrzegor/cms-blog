@@ -66,7 +66,6 @@ const parseQueryString = string => {
     return {};
   }
   const segments = string.split('&').map(s => s.split('='));
-  console.log(segments);
   let queryString = {};
   segments.forEach(s => {
     queryString = {
@@ -92,7 +91,6 @@ const handleToken = body => {
 
 // Make a POST request and parse the response as JSON
 const sendPostRequestForAccesToken = async query => {
-  console.log(`wysyła po tokena`);
   const params = {
     grant_type: 'authorization_code',
     code: query.code,
@@ -152,7 +150,6 @@ export const makeRefreshTokenPost = async () => {
     client_secret: CONFIG.client_secret,
     refresh_token: localStorage.getItem('refresh_token'),
   };
-  console.log(params);
   return fetch(`${URL}${CONFIG.token_endpoint}`, {
     method: 'POST',
     headers: {

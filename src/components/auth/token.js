@@ -7,7 +7,6 @@ export default class TokenHandler {
   }
 
   setTokens(response) {
-    console.log(`odpala`, response);
     this.TOKEN = response.access_token;
     this.isExpired = false;
     localStorage.setItem('refresh_token', response.refresh_token);
@@ -17,12 +16,10 @@ export default class TokenHandler {
   }
 
   setIsExpired(isAdminPanel) {
-    console.log(`odpalam setIsExpired`, localStorage.getItem('refresh_token'));
     if (
       localStorage.getItem('refresh_token') &&
       localStorage.getItem('refresh_token') !== 'undefined'
     ) {
-      console.log(`pierwszy typ`);
       const tokenCreationTime = Number(localStorage.getItem('refresh_token_created_at')) * 1000;
       const NowMs = new Date().getTime();
       const expTime = localStorage.getItem('refresh_token_expired_time') * 1000;
@@ -32,13 +29,11 @@ export default class TokenHandler {
       (isAdminPanel && !localStorage.getItem('refresh_token')) ||
       (isAdminPanel && localStorage.getItem('refresh_token') === 'undefined')
     ) {
-      console.log(`zrob coś ====================>`);
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('refresh_token_created_at');
       localStorage.removeItem('refresh_token_expired_time');
       window.location.href = 'https://musing-ramanujan-8002a4.netlify.app/index.html';
     } else {
-      console.log(`trzeci typ`);
       this.isExpired = true;
     }
   }

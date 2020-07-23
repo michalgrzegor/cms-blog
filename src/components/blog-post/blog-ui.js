@@ -69,7 +69,6 @@ const appendImage = (src, postContainer) => {
 };
 
 const createPost = resJson => {
-  console.log(resJson);
   const bodyArray = resJson.data.ops;
   const postContainer = document.querySelector('.article');
   let paragraphContent = '';
@@ -101,7 +100,6 @@ const getPostId = () => new URLSearchParams(window.location.search).get('id');
 const getBlogPost = () => blogPostsMainPageReq().makeGetBlogPostMainPage(getPostId());
 
 export const createBlogPost = res => {
-  console.log(res);
   createTitle(res);
   createAuthor(res);
   createPost(res);
