@@ -40,7 +40,7 @@ class NavigationBar extends HTMLElement {
       const listEl = document.createElement('li');
       const linkEl = document.createElement('a');
       listEl.classList.add('menu__element', 'menu__element--admin');
-      linkEl.href = './admin-panel.html';
+      linkEl.href = './admin-panel';
       linkEl.innerHTML = 'ADMIN';
       listEl.appendChild(linkEl);
       functionsContainer.appendChild(listEl);

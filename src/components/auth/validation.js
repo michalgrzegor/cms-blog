@@ -1,4 +1,4 @@
-const renderError = (message, id) => {
+export const renderError = (message, id) => {
   const paragraph = document.createElement('p');
   paragraph.classList.add('error', `error_${id}`);
   const container = document.querySelector(`#${id}`).parentNode;
@@ -17,6 +17,7 @@ const validateEmail = email => {
 };
 
 export const validate = (value, type, id) => {
+  console.log(id);
   if (type === 'text' && value === '') {
     removeError(id);
     renderError('This field is required', id);

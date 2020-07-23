@@ -1,4 +1,5 @@
 import {createLoader, removeLoader} from '../UI/loader';
+import {renderError} from './validation';
 import TokenHandler from './token';
 import {login} from './pkce';
 
@@ -18,9 +19,7 @@ const makeRequest = async (request, data) => {
     return request(data);
   }
   if (TOKEN_HANDLER.getIsRefresh()) {
-    return TOKEN_HANDLER.refreshToken()
-      .then(res => console.log(res))
-      .then(() => request(data));
+    return TOKEN_HANDLER.refreshToken().then(() => request(data));
   }
   return login();
 };
@@ -41,7 +40,11 @@ export const signup = () => {
     body: JSON.stringify(formData),
   })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+      if (data.details === 'Registration token needed.')
+        renderError('wrong token', 'user_token_signup');
+      if (data.message === 'Registration was successful.') login();
+    })
     .then(() => removeLoader());
 };
 
@@ -55,13 +58,10 @@ export const reset = () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(formData),
-  })
-    .then(response => response.json())
-    .then(data => console.log(data));
+  }).then(response => response.json());
 };
 
 const getToken = async () => {
-  console.log(TOKEN_HANDLER.getToken());
   return fetch(`${URL}registration_tokens`, {
     method: 'POST',
     headers: {
@@ -76,7 +76,6 @@ export const generateToken = async () => makeRequest(getToken, null);
 // make, edit, delete, get blog post request
 
 const postBlogPost = ({postData}) => {
-  console.log(postData);
   return fetch(`${URL}quill_blog_posts`, {
     method: 'POST',
     headers: {
@@ -118,7 +117,6 @@ const getAllBlogPosts = () => {
 };
 
 const updateBlogPost = ({postId, postData}) => {
-  console.log(JSON.stringify(postData));
   return fetch(`${URL}quill_blog_posts/${postId}`, {
     method: 'PATCH',
     headers: {
@@ -181,7 +179,6 @@ const getUser = () => {
 };
 
 const updateUser = ({userData}) => {
-  console.log(userData);
   return fetch(`${URL}user_profile`, {
     method: 'PATCH',
     headers: {
@@ -229,7 +226,6 @@ const getBlogPostMainPage = ({id}) => {
 };
 
 const getBlogPostsMainPageByNumber = ({pageNumb}) => {
-  console.log(pageNumb);
   return fetch(`${URL}blog_posts?page=${pageNumb}`, {
     method: 'GET',
     headers: {
@@ -259,7 +255,6 @@ export const blogPostsMainPageReq = () => {
 // search blog posts
 
 const searchBlogPosts = ({searchData}) => {
-  console.log(searchData);
   return fetch(`${URL}blog_post_searches`, {
     method: 'POST',
     headers: {
@@ -272,7 +267,9 @@ const searchBlogPosts = ({searchData}) => {
 export const searchBlogPostsReq = () => {
   return {
     makeSearchBlogPosts: function (searchData) {
-      return searchBlogPosts({searchData: searchData});
+      return searchBlogPosts({
+        searchData: searchData,
+      });
     },
   };
 };
