@@ -57,7 +57,7 @@ const previewButton = () => {
 };
 
 const redirectToBlogPost = response => {
-  window.location.href = `http://localhost:8080/blog-post.html?id=${response.id}`;
+  window.location.href = `https://musing-ramanujan-8002a4.netlify.app/blog-post?id=${response.id}`;
 };
 
 const sendPost = () => {

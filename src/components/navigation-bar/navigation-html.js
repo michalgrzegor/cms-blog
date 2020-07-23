@@ -15,14 +15,14 @@ const navigationBody = `
         </a>
         <div class="nav__content">
             <div class="nav__logo">
-                <a href="./index.html"><img src="${logo}" alt="" /></a>
+                <a href="./index"><img src="${logo}" alt="" /></a>
             </div>
             <ul class="nav__menu">
                 <li class="menu__element menu__element--active">
-                    <a href="./index.html">HOME</a>
+                    <a href="./index">HOME</a>
                 </li>
                 <li class="menu__element">
-                    <a href="./about.html">ABOUT US</a>
+                    <a href="./about">ABOUT US</a>
                 </li>
                 <li class="menu__element">
                     <a href="">CONTACT</a>
