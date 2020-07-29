@@ -24,7 +24,7 @@ const options = {
 
 const collectData = () => {
   const data = {
-    author: 'przykladowe imie',
+    author: 'your name',
     last_update_date: new Date(),
     title: '',
     introduction: '',

@@ -2,6 +2,7 @@ import {usersReq} from '../../auth/fetch';
 import {createLoader, removeLoader} from '../../UI/loader';
 import imageLoader from '../../UI/image-loader';
 import showSnackBar from '../../UI/snackbar';
+import * as validation from '../../auth/validation';
 
 const checkError = response => {
   if (response.status >= 200 && response.status <= 299) {
@@ -16,23 +17,38 @@ const getTemplate = () => {
   return templateClone;
 };
 
-const toggleElements = () => {
+const toggleProfileElements = () => {
   document.querySelector('.account__data').classList.toggle('hide');
   document.querySelector('.btn-edit').classList.toggle('hide');
   document.querySelector('.account__edit').classList.toggle('hide');
   document.querySelector('.btn-save').classList.toggle('hide');
+  document.querySelector('.btn-change').classList.toggle('hide');
+  document.querySelector('.btn-cancel').classList.toggle('hide');
 };
 
 const editAccount = () => {
-  toggleElements();
+  toggleProfileElements();
   document.querySelector('.input__name').value = document.querySelector(
     '.account__name span'
   ).innerText;
-  document.querySelector('.input__email').value = document.querySelector(
-    '.account__email span'
-  ).innerText;
   document.querySelector('.input__about').value = document.querySelector(
     '.account__about span'
+  ).innerText;
+};
+
+const toggleChangeEmailPasswordElements = () => {
+  document.querySelector('.account__data').classList.toggle('hide');
+  document.querySelector('.btn-edit').classList.toggle('hide');
+  document.querySelector('.account__change').classList.toggle('hide');
+  document.querySelector('.btn-save-change').classList.toggle('hide');
+  document.querySelector('.btn-change').classList.toggle('hide');
+  document.querySelector('.btn-cancel-change').classList.toggle('hide');
+};
+
+const changeEmailPassword = () => {
+  toggleChangeEmailPasswordElements();
+  document.querySelector('.input__email').value = document.querySelector(
+    '.account__email span'
   ).innerText;
 };
 
@@ -44,7 +60,6 @@ const saveAccount = () => {
   if (document.querySelector('.input__about').value !== 'write a few sentences about yourself')
     about = document.querySelector('.input__about').value;
   createLoader(document.body);
-  console.log(base64Img);
   usersReq()
     .makeUpdateUser({
       username: document.querySelector('.input__name').value,
@@ -59,6 +74,39 @@ const saveAccount = () => {
       showSnackBar('something went wrong, try again');
       removeLoader();
     });
+};
+
+const saveEmailPassCanges = () => {
+  const newPass = document.querySelector('#input__newpass');
+  const inputArray = [
+    document.querySelector('#input__email'),
+    document.querySelector('#input__oldpass'),
+  ];
+  let isFormValid = true;
+  inputArray.forEach(input => {
+    if (!validation.isValid(input.value, input.type)) isFormValid = false;
+  });
+  if (newPass.value.length > 0) {
+    if (!validation.isValid(newPass.value, newPass.type)) isFormValid = false;
+  }
+  if (isFormValid) {
+    createLoader(document.body);
+    usersReq()
+      .makeChangeEmailPassword({
+        email: document.querySelector('.input__email').value,
+        password: document.querySelector('.input__newpass').value,
+        old_password: document.querySelector('.input__oldpass').value,
+      })
+      .then(r => r.json())
+      .then(r => renderMyAccount(r))
+      .catch(err => {
+        showSnackBar('something went wrong, try again');
+        removeLoader();
+      });
+  } else {
+    inputArray.forEach(input => validation.validate(input.value, input.type, input.id));
+    if (newPass.value.length > 0) validation.validate(newPass.value, newPass.type, newPass.id);
+  }
 };
 
 const resizeAndCropImg = () => {
@@ -84,7 +132,6 @@ const resizeAndCropImg = () => {
       outputImage.height = 128;
       const ctx = outputImage.getContext('2d');
       ctx.drawImage(image, outputX, outputY, outputWidth, outputHeight, 0, 0, 128, 128);
-      console.log(outputImage.toDataURL());
       document.querySelector('.account__edit img').src = outputImage.toDataURL();
       document.querySelector('.account__data img').src = outputImage.toDataURL();
     };
@@ -94,15 +141,30 @@ const resizeAndCropImg = () => {
 
 const addEvents = template => {
   template.querySelector('.btn-edit').addEventListener('click', () => editAccount());
+  template.querySelector('.btn-change').addEventListener('click', () => changeEmailPassword());
   template.querySelector('.btn-save').addEventListener('click', () => saveAccount());
+  template.querySelector('.btn-save-change').addEventListener('click', () => saveEmailPassCanges());
   template.querySelector('.input__avatar').addEventListener('change', () => resizeAndCropImg());
   template
     .querySelector('.btn-file')
     .addEventListener('click', () => document.querySelector('.input__avatar').click());
+  [template.querySelector('#input__email'), template.querySelector('#input__oldpass')].forEach(
+    input => {
+      input.addEventListener('blur', () => {
+        validation.validate(input.value, input.type, input.id);
+      });
+    }
+  );
+  template.querySelector('#input__newpass').addEventListener('blur', function () {
+    if (this.value.length > 0) validation.validate(this.value, this.type, this.id);
+  });
+  template.querySelector('.btn-cancel').addEventListener('click', () => toggleProfileElements());
+  template
+    .querySelector('.btn-cancel-change')
+    .addEventListener('click', () => toggleChangeEmailPasswordElements());
 };
 
 const renderMyAccount = json => {
-  console.log(json);
   const container = document.querySelector('.admin__container');
   container.innerText = '';
   const template = getTemplate();

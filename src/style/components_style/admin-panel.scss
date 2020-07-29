@@ -172,6 +172,10 @@
     .btn--hidden {
       display: none;
     }
+
+    p {
+      display: inline-block;
+    }
   }
 
   .user__legend,
@@ -317,6 +321,15 @@
 
     img {
       display: none;
+    }
+  }
+
+  .account__change {
+    div {
+      p {
+        color: $errorText;
+        padding: .8rem 0;
+      }
     }
   }
 }

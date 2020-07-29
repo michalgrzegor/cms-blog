@@ -189,6 +189,17 @@ const updateUser = ({userData}) => {
   });
 };
 
+const changeEmailPassword = ({newEmailPassword}) => {
+  return fetch(`${URL}registration`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${TOKEN_HANDLER.getToken()}`,
+    },
+    body: JSON.stringify(newEmailPassword),
+  });
+};
+
 export const usersReq = () => {
   return {
     makeGetUsers: function () {
@@ -200,6 +211,11 @@ export const usersReq = () => {
     makeUpdateUser: function (userData) {
       return makeRequest(updateUser, {
         userData: userData,
+      });
+    },
+    makeChangeEmailPassword: function (newEmailPassword) {
+      return makeRequest(changeEmailPassword, {
+        newEmailPassword: newEmailPassword,
       });
     },
   };

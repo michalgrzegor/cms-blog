@@ -3,9 +3,11 @@ import {blogPostReq} from '../../auth/fetch';
 import {loadDataToEditor} from './quill-options';
 import {changeToEditor} from '../admin-navigation';
 import showSnackBar from '../../UI/snackbar';
+import OpenDialog from '../../UI/dialog';
 
-export default class ManagerFunctions {
+export default class ManagerFunctions extends OpenDialog {
   constructor() {
+    super();
     this.entryList = [];
     this.list = [];
     this.renderedList = [];
@@ -38,29 +40,35 @@ export default class ManagerFunctions {
     Array.from(template.querySelectorAll('.btn--delete')).forEach(btn => {
       btn.addEventListener('click', () => {
         createLoader(document.body);
-        blogPostReq()
-          .makeDeleteBlogPost(btn.getAttribute('post-id'))
-          .then(() => blogPostReq().makeGetAllBlogPosts())
-          .then(response => response.json())
-          .then(response => this.setLists(response, this.mngType, this.arrayName))
-          .then(() => this.removeTable())
-          .then(() => this.renderTable())
-          .then(() => removeLoader())
-          .catch(err => {
-            showSnackBar('something went wrong, try again');
-            removeLoader();
-          });
+        const yesFunction = () => {
+          blogPostReq()
+            .makeDeleteBlogPost(btn.getAttribute('post-id'))
+            .then(() => blogPostReq().makeGetAllBlogPosts())
+            .then(response => response.json())
+            .then(response => this.setLists(response, this.mngType, this.arrayName))
+            .then(() => this.removeTable())
+            .then(() => this.renderTable())
+            .then(() => removeLoader())
+            .catch(err => {
+              showSnackBar('something went wrong, try again');
+              removeLoader();
+            });
+        };
+        const noFunction = () => {
+          removeLoader();
+        };
+        this.createDialog(yesFunction, noFunction, `czy chcesz usunąć post`);
       });
     });
   }
 
-  addUsersBtnEvents(template) {
-    Array.from(template.querySelectorAll('.user__btn')).forEach(btn =>
-      btn.addEventListener('click', () => {
-        console.log(btn.getAttribute('user-id'));
-      })
-    );
-  }
+  // addUsersBtnEvents(template) {
+  //   Array.from(template.querySelectorAll('.user__btn')).forEach(btn =>
+  //     btn.addEventListener('click', () => {
+  //       console.log(btn.getAttribute('user-id'));
+  //     })
+  //   );
+  // }
 
   sortCallback(a, b, sortVariable) {
     if (a[sortVariable].toLowerCase() < b[sortVariable].toLowerCase()) {
@@ -149,7 +157,6 @@ export default class ManagerFunctions {
   }
 
   setLists(listArray, mngType, arrayName) {
-    console.log(listArray);
     this.list = listArray;
     this.renderedList = [...listArray.slice(0, 10)];
     this.pageNumber = 1;
@@ -172,7 +179,6 @@ export default class ManagerFunctions {
   }
 
   tableContainer() {
-    console.log(this.mngType);
     if (document.querySelector(`.${this.mngType}__table`)) {
       return document.querySelector(`.${this.mngType}__table`);
     }
@@ -186,7 +192,6 @@ export default class ManagerFunctions {
   }
 
   changePage(number) {
-    console.log(number);
     this.pageNumber = number + 1;
     this.renderedList = [...this.list.slice(10 * number, 10 * number + 10)];
     this.removeTable();
@@ -197,7 +202,6 @@ export default class ManagerFunctions {
     if (document.querySelector('.pages__container'))
       document.querySelector('.pages__container').remove();
     const arrayOfPages = [...Array(this.pagesNumber).keys()];
-    console.log(arrayOfPages);
     const pagesContainer = document.createElement('div');
     pagesContainer.classList.add('pages__container');
     arrayOfPages.forEach((page, index) => {
