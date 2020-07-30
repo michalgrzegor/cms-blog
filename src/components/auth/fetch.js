@@ -163,7 +163,6 @@ const getUsers = () => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${TOKEN_HANDLER.getToken()}`,
     },
   });
 };
@@ -203,7 +202,7 @@ const changeEmailPassword = ({newEmailPassword}) => {
 export const usersReq = () => {
   return {
     makeGetUsers: function () {
-      return makeRequest(getUsers, null);
+      return getUsers();
     },
     makeGetUser: function () {
       return makeRequest(getUser, null);
