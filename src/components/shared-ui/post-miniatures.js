@@ -24,7 +24,7 @@ export default class PostsMiniatures {
     postTemplate.querySelector('.miniature__opening').textContent = postMin.introduction;
     postTemplate.querySelector('.post__comments').textContent = postMin.comments;
     postTemplate.querySelector('.miniature').setAttribute('postId', postMin.id);
-    postTemplate.querySelector('.miniature').href = `./blog-post.html?id=${postMin.id}`;
+    postTemplate.querySelector('.miniature').href = `./blog-post?id=${postMin.id}`;
     imageLoader(
       postMin.author_avatar_url || `https://api.adorable.io/avatars/40/${postMin.email}.png`,
       postTemplate.querySelector('.miniature__author')
