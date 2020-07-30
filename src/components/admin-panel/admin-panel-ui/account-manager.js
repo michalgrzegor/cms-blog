@@ -1,8 +1,8 @@
 import {usersReq} from '../../auth/fetch';
-import {createLoader, removeLoader} from '../../UI/loader';
+import {createLoader, removeLoader} from '../../shared-ui/loader';
 import {logout} from '../../auth/pkce';
-import imageLoader from '../../UI/image-loader';
-import showSnackBar from '../../UI/snackbar';
+import imageLoader from '../../shared-ui/image-loader';
+import showSnackBar from '../../shared-ui/snackbar';
 import * as validation from '../../auth/validation';
 
 const checkError = response => {

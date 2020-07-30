@@ -1,5 +1,5 @@
 import './style/style.scss';
-import PostsMiniatures from './components/UI/post-miniatures';
+import PostsMiniatures from './components/shared-ui/post-miniatures';
 import {TOKEN_HANDLER} from './components/auth/fetch';
 import NavigationBar from './components/navigation-bar/navigation';
 

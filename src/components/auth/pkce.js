@@ -1,5 +1,5 @@
 import {TOKEN_HANDLER} from './fetch';
-import showSnackBar from '../UI/snackbar';
+import showSnackBar from '../shared-ui/snackbar';
 
 const URL = 'https://fierce-anchorage-12434.herokuapp.com/';
 

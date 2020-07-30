@@ -1,7 +1,7 @@
-import initPostsManager from './admin-opt/post-manager';
-import initUsersManager from './admin-opt/users-manager';
-import initMyAccount from './admin-opt/account-manager';
-import {initEditor} from './admin-opt/quill-options';
+import initPostsManager from './admin-panel-ui/posts-manager';
+import initUsersManager from './admin-panel-ui/users-manager';
+import initMyAccount from './admin-panel-ui/account-manager';
+import {initEditor} from './admin-panel-ui/text-editor';
 
 const changeActiveClass = (nodesArray, number) => {
   nodesArray.forEach(node => node.classList.remove('bg--color-active'));

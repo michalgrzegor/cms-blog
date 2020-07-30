@@ -11,6 +11,7 @@ module.exports = {
     auth: './src/components/auth/auth.js',
     blogpost: './src/components/blog-post/blog-post.js',
     about: './src/components/about/about.js',
+    contact: './src/components/contact/contact.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -54,6 +55,11 @@ module.exports = {
       filename: 'about.html',
       template: './src/components/about/about.html',
       chunks: ['about'],
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'contact.html',
+      template: './src/components/contact/contact.html',
+      chunks: ['contact'],
     }),
   ],
   module: {

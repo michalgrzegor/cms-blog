@@ -1,9 +1,9 @@
-import {createLoader, removeLoader} from '../../UI/loader';
+import {createLoader, removeLoader} from '../../shared-ui/loader';
 import {blogPostReq} from '../../auth/fetch';
-import {loadDataToEditor} from './quill-options';
+import {loadDataToEditor} from './text-editor';
 import {changeToEditor} from '../admin-navigation';
-import showSnackBar from '../../UI/snackbar';
-import OpenDialog from '../../UI/dialog';
+import showSnackBar from '../../shared-ui/snackbar';
+import OpenDialog from '../../shared-ui/dialog';
 
 export default class ManagerFunctions extends OpenDialog {
   constructor() {
@@ -61,14 +61,6 @@ export default class ManagerFunctions extends OpenDialog {
       });
     });
   }
-
-  // addUsersBtnEvents(template) {
-  //   Array.from(template.querySelectorAll('.user__btn')).forEach(btn =>
-  //     btn.addEventListener('click', () => {
-  //       console.log(btn.getAttribute('user-id'));
-  //     })
-  //   );
-  // }
 
   sortCallback(a, b, sortVariable) {
     if (a[sortVariable].toLowerCase() < b[sortVariable].toLowerCase()) {

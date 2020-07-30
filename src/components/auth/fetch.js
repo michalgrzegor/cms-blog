@@ -1,4 +1,4 @@
-import {createLoader, removeLoader} from '../UI/loader';
+import {createLoader, removeLoader} from '../shared-ui/loader';
 import {renderError} from './validation';
 import TokenHandler from './token';
 import {login} from './pkce';

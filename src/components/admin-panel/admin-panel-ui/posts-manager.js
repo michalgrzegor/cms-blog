@@ -1,7 +1,7 @@
-import ManagerFunctions from './manager-functions';
+import ManagerFunctions from './shared-functions';
 import {blogPostReq} from '../../auth/fetch';
-import {createLoader, removeLoader} from '../../UI/loader';
-import showSnackBar from '../../UI/snackbar';
+import {createLoader, removeLoader} from '../../shared-ui/loader';
+import showSnackBar from '../../shared-ui/snackbar';
 
 const mf = new ManagerFunctions();
 

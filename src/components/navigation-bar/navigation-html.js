@@ -25,7 +25,7 @@ const navigationBody = `
                     <a href="./about">ABOUT US</a>
                 </li>
                 <li class="menu__element">
-                    <a href="">CONTACT</a>
+                    <a href="./contact">CONTACT</a>
                 </li>
             </ul>
             <ul class="nav__social">

@@ -1,5 +1,5 @@
 import {generateToken, usersReq} from '../../auth/fetch';
-import ManagerFunctions from './manager-functions';
+import ManagerFunctions from './shared-functions';
 
 const mf = new ManagerFunctions();
 

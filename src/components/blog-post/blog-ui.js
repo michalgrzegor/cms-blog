@@ -2,8 +2,8 @@ import twitter from '../../assets/img/twitter.png';
 import facebook from '../../assets/img/facebook.png';
 import commentlogo from '../../assets/img/commentlogo.png';
 import {blogPostsMainPageReq} from '../auth/fetch';
-import {createLoader, removeLoader} from '../UI/loader';
-import imageLoader from '../UI/image-loader';
+import {createLoader, removeLoader} from '../shared-ui/loader';
+import imageLoader from '../shared-ui/image-loader';
 
 const createTitle = resJson => {
   const header = document.createElement('h1');
