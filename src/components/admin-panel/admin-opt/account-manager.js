@@ -1,5 +1,6 @@
 import {usersReq} from '../../auth/fetch';
 import {createLoader, removeLoader} from '../../UI/loader';
+import {logout} from '../../auth/pkce';
 import imageLoader from '../../UI/image-loader';
 import showSnackBar from '../../UI/snackbar';
 import * as validation from '../../auth/validation';
@@ -24,6 +25,7 @@ const toggleProfileElements = () => {
   document.querySelector('.btn-save').classList.toggle('hide');
   document.querySelector('.btn-change').classList.toggle('hide');
   document.querySelector('.btn-cancel').classList.toggle('hide');
+  document.querySelector('.btn-logout').classList.toggle('hide');
 };
 
 const editAccount = () => {
@@ -43,6 +45,7 @@ const toggleChangeEmailPasswordElements = () => {
   document.querySelector('.btn-save-change').classList.toggle('hide');
   document.querySelector('.btn-change').classList.toggle('hide');
   document.querySelector('.btn-cancel-change').classList.toggle('hide');
+  document.querySelector('.btn-logout').classList.toggle('hide');
 };
 
 const changeEmailPassword = () => {
@@ -97,11 +100,10 @@ const saveEmailPassCanges = () => {
         password: document.querySelector('.input__newpass').value,
         old_password: document.querySelector('.input__oldpass').value,
       })
-      .then(r => r.json())
-      .then(r => renderMyAccount(r))
-      .catch(err => {
-        showSnackBar('something went wrong, try again');
+      .then(r => {
         removeLoader();
+        if (r.status === 200) r.json().then(re => renderMyAccount(re));
+        if (r.status !== 200) r.json().then(re => showSnackBar(re.details));
       });
   } else {
     inputArray.forEach(input => validation.validate(input.value, input.type, input.id));
@@ -162,6 +164,7 @@ const addEvents = template => {
   template
     .querySelector('.btn-cancel-change')
     .addEventListener('click', () => toggleChangeEmailPasswordElements());
+  template.querySelector('.btn-logout').addEventListener('click', () => logout());
 };
 
 const renderMyAccount = json => {

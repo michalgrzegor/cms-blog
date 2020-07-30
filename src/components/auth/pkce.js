@@ -184,6 +184,5 @@ export const logout = async () => {
   )
     .then(r => errorHandling(r, 'something went wrong, try again'))
     .then(response => handleLogout(response))
-    .then(response => console.log(response))
     .catch(error => errorHandling(error, 'something went wrong, try again'));
 };
