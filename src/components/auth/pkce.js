@@ -5,8 +5,8 @@ const URL = 'https://fierce-anchorage-12434.herokuapp.com/';
 
 const CONFIG = {
   client_id: 'fecp3e5pAkjOarXF5nsWAoPe1_qr-s2E81chKuSGP0o',
-  redirect_uri: 'http://localhost:8080/admin-panel.html',
-  // redirect_uri: 'https://musing-ramanujan-8002a4.netlify.app/admin-panel.html',
+  // redirect_uri: 'http://localhost:8080/admin-panel.html',
+  redirect_uri: 'https://musing-ramanujan-8002a4.netlify.app/admin-panel.html',
   authorization_endpoint: 'oauth/authorize',
   token_endpoint: 'oauth/token',
   requested_scopes: 'openid',
