@@ -57,7 +57,7 @@ export default class ManagerFunctions extends OpenDialog {
         const noFunction = () => {
           removeLoader();
         };
-        this.createDialog(yesFunction, noFunction, `czy chcesz usunąć post`);
+        this.createDialog(yesFunction, noFunction, 'Delete this blog post?');
       });
     });
   }
@@ -113,6 +113,7 @@ export default class ManagerFunctions extends OpenDialog {
       sortArray = sortArray.concat([
         legendTemplate.querySelector(`.${this.mngType}__author`),
         legendTemplate.querySelector(`.${this.mngType}__date`),
+        legendTemplate.querySelector(`.${this.mngType}__email`),
       ]);
     if (this.mngType === 'post')
       sortArray = sortArray.concat([

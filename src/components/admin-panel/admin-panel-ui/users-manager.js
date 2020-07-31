@@ -5,8 +5,8 @@ const mf = new ManagerFunctions();
 
 const displayToken = async () => {
   const token = await generateToken().then(r => r.json());
-  const container = document.querySelector('.admin__container');
-  const btns = document.querySelector('.editor__buttons');
+  const container = document.querySelector('.editor__buttons');
+  const btns = document.querySelector('.editor__button');
   const paragraph = document.createElement('p');
   paragraph.classList.add('token__display');
   paragraph.innerHTML = `
