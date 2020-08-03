@@ -2,7 +2,7 @@
 
 ### Aplication for managing blog content written in vanilla Javascript
 
-![Logo](work_1.png)
+![Logo](work_2.png)
 
 ## General info
 
@@ -42,11 +42,14 @@ $ npm start
 
 ## Link to app
 
-Go to this link: https://musing-ramanujan-8002a4.netlify.app/auth and click **login** button. To
-test app login as administrator using **admian@admin.com** email and password: **adminadmin**.
+Go to this link: https://musing-ramanujan-8002a4.netlify.app/auth and click **login** button.
+
+To test app login as administrator using **admian@admin.com** email and password: **adminadmin**.
 
 If you want to create a new author, you need to log in as administrator (as above) and generate a
 registration token. Then click on this link again and fill out the form.
+
+To see blog as visitor just got to https://musing-ramanujan-8002a4.netlify.app
 
 ## Link to REST API
 
