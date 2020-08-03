@@ -53,8 +53,7 @@ If you want to create a new author, you need to log in as administrator (as abov
 registration token. Then click on this [link](https://musing-ramanujan-8002a4.netlify.app/auth) and
 fill out the form.
 
-To see the blog as a visitor just go to
-[blog website](https://musing-ramanujan-8002a4.netlify.app/auth)
+To see the blog as a visitor just go to [blog website](https://musing-ramanujan-8002a4.netlify.app)
 
 ## Link to Rails Application
 
