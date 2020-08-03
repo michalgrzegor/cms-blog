@@ -1,6 +1,6 @@
 # CMS blog
 
-### Aplication for managing blog content written in vanilla Javascript
+### Application for managing blog content written in vanilla Javascript
 
 ![Logo](work_2.png)
 
@@ -53,4 +53,4 @@ To see blog as visitor just got to https://musing-ramanujan-8002a4.netlify.app
 
 ## Link to REST API
 
-link
+https://github.com/michalgrzegor/cms-blog
