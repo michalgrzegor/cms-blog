@@ -12,7 +12,7 @@ module.exports = {
     blogpost: './src/components/blog-post/blog-post.js',
     about: './src/components/about/about.js',
     contact: './src/components/contact/contact.js',
-    redirect: './src/components/contact/redirect.js',
+    redirect: './src/components/redirect/redirect.js',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -64,7 +64,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'redirect.html',
-      template: './src/components/contact/redirect.html',
+      template: './src/components/redirect/redirect.html',
       chunks: ['redirect'],
     }),
   ],
