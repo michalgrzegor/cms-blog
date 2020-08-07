@@ -48,7 +48,7 @@ $ npm start
 Go to this [link](https://musing-ramanujan-8002a4.netlify.app/redirect) and click the **Authorize**
 button.
 
-To test app login using **admian@admin.com** email and password: **adminadmin**.
+To test app login using **admin@admin.com** email and password: **adminadmin**.
 
 If you want to create a new author, you need to log in as administrator (as above) and generate a
 registration token. Then click on this [link](https://musing-ramanujan-8002a4.netlify.app/auth) and
