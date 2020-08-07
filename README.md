@@ -45,7 +45,8 @@ $ npm start
 
 ## Link to app
 
-Go to this [link](https://musing-ramanujan-8002a4.netlify.app/auth) and click the **login** button.
+Go to this [link](https://musing-ramanujan-8002a4.netlify.app/redirect) and click the **Authorize**
+button.
 
 To test app login using **admian@admin.com** email and password: **adminadmin**.
 
