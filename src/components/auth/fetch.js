@@ -129,25 +129,25 @@ const updateBlogPost = ({postId, postData}) => {
 
 export const blogPostReq = () => {
   return {
-    makePostBlogPost: function (postData) {
+    postBlogPost: function (postData) {
       return makeRequest(postBlogPost, {
         postData: postData,
       });
     },
-    makeGetBlogPost: function (postId) {
+    getBlogPost: function (postId) {
       return makeRequest(getBlogPost, {
         postId: postId,
       });
     },
-    makeDeleteBlogPost: function (postId) {
+    deleteBlogPost: function (postId) {
       return makeRequest(deleteBlogPost, {
         postId: postId,
       });
     },
-    makeGetAllBlogPosts: function () {
+    getAllBlogPosts: function () {
       return makeRequest(getAllBlogPosts, null);
     },
-    makeUpdateBlogPost: function (postId, postData) {
+    updateBlogPost: function (postId, postData) {
       return makeRequest(updateBlogPost, {
         postId: postId,
         postData: postData,
@@ -201,18 +201,18 @@ const changeEmailPassword = ({newEmailPassword}) => {
 
 export const usersReq = () => {
   return {
-    makeGetUsers: function () {
+    getUsers: function () {
       return getUsers();
     },
-    makeGetUser: function () {
+    getUser: function () {
       return makeRequest(getUser, null);
     },
-    makeUpdateUser: function (userData) {
+    updateUser: function (userData) {
       return makeRequest(updateUser, {
         userData: userData,
       });
     },
-    makeChangeEmailPassword: function (newEmailPassword) {
+    changeEmailPassword: function (newEmailPassword) {
       return makeRequest(changeEmailPassword, {
         newEmailPassword: newEmailPassword,
       });
@@ -251,15 +251,15 @@ const getBlogPostsMainPageByNumber = ({pageNumb}) => {
 
 export const blogPostsMainPageReq = () => {
   return {
-    makeGetBlogPostsMainPage: function () {
+    getBlogPostsMainPage: function () {
       return getBlogPostsMainPage();
     },
-    makeGetBlogPostMainPage: function (id) {
+    getBlogPostMainPage: function (id) {
       return getBlogPostMainPage({
         id: id,
       });
     },
-    makeGetBlogPostsMainPageByNumber: function (pageNumb) {
+    getBlogPostsMainPageByNumber: function (pageNumb) {
       return getBlogPostsMainPageByNumber({
         pageNumb: pageNumb,
       });
@@ -281,7 +281,7 @@ const searchBlogPosts = ({searchData}) => {
 
 export const searchBlogPostsReq = () => {
   return {
-    makeSearchBlogPosts: function (searchData) {
+    searchBlogPosts: function (searchData) {
       return searchBlogPosts({
         searchData: searchData,
       });

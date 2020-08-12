@@ -72,12 +72,12 @@ export default class PostsMiniatures {
       document
         .querySelectorAll('.miniature__page')
         .forEach(p => p.classList.remove('font--weight-bold'));
-      this.pageNumber = Number(target.innerText);
+      this.pageNumber = Number(target.textContent);
       if (
         this.pageNumber === this.paginationNumber * 2 ||
         this.pageNumber === this.paginationNumber * 2 - 1
       ) {
-        this.renderPostsMin(this.postMiniaturesArray[Number(target.innerText) - 1]);
+        this.renderPostsMin(this.postMiniaturesArray[Number(target.textContent) - 1]);
       } else {
         document.querySelector('.miniature__pages').remove();
         if (!this.isSearchMode) this.initPostsMiniatures(Math.ceil(this.pageNumber / 2));
@@ -108,7 +108,7 @@ export default class PostsMiniatures {
       document.querySelector('.container').innerHTML = '';
       createLoader(document.querySelector('.container'));
       const postMins = await searchBlogPostsReq()
-        .makeSearchBlogPosts({
+        .searchBlogPosts({
           search: query,
           page: number,
         })
@@ -141,7 +141,7 @@ export default class PostsMiniatures {
     createLoader(document.body);
     this.paginationNumber = number;
     const postMins = await blogPostsMainPageReq()
-      .makeGetBlogPostsMainPageByNumber(number)
+      .getBlogPostsMainPageByNumber(number)
       .then(r => r.json())
       .catch(err => {
         showSnackBar('something went wrong, try again');

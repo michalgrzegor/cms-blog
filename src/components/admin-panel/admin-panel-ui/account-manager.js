@@ -32,10 +32,10 @@ const editAccount = () => {
   toggleProfileElements();
   document.querySelector('.input__name').value = document.querySelector(
     '.account__name span'
-  ).innerText;
+  ).textContent;
   document.querySelector('.input__about').value = document.querySelector(
     '.account__about span'
-  ).innerText;
+  ).textContent;
 };
 
 const toggleChangeEmailPasswordElements = () => {
@@ -52,7 +52,7 @@ const changeEmailPassword = () => {
   toggleChangeEmailPasswordElements();
   document.querySelector('.input__email').value = document.querySelector(
     '.account__email span'
-  ).innerText;
+  ).textContent;
 };
 
 const saveAccount = () => {
@@ -64,7 +64,7 @@ const saveAccount = () => {
     about = document.querySelector('.input__about').value;
   createLoader(document.body);
   usersReq()
-    .makeUpdateUser({
+    .updateUser({
       username: document.querySelector('.input__name').value,
       about: about,
       avatar: {
@@ -95,7 +95,7 @@ const saveEmailPassCanges = () => {
   if (isFormValid) {
     createLoader(document.body);
     usersReq()
-      .makeChangeEmailPassword({
+      .changeEmailPassword({
         email: document.querySelector('.input__email').value,
         password: document.querySelector('.input__newpass').value,
         old_password: document.querySelector('.input__oldpass').value,
@@ -169,11 +169,11 @@ const addEvents = template => {
 
 const renderMyAccount = json => {
   const container = document.querySelector('.admin__container');
-  container.innerText = '';
+  container.textContent = '';
   const template = getTemplate();
-  template.querySelector('.account__name span').innerText = json.username;
-  template.querySelector('.account__email span').innerText = json.email;
-  template.querySelector('.account__about span').innerText =
+  template.querySelector('.account__name span').textContent = json.username;
+  template.querySelector('.account__email span').textContent = json.email;
+  template.querySelector('.account__about span').textContent =
     json.about || 'write a few sentences about yourself';
   addEvents(template);
   imageLoader(
@@ -191,7 +191,7 @@ const renderMyAccount = json => {
 const initMyAccount = () => {
   createLoader(document.body);
   usersReq()
-    .makeGetUser()
+    .getUser()
     .then(checkError)
     .then(r => r.json())
     .then(r => renderMyAccount(r))

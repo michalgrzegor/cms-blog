@@ -27,7 +27,7 @@ const renderCards = response => {
 const initAbout = () => {
   createLoader(document.body);
   usersReq()
-    .makeGetUsers()
+    .getUsers()
     .then(r => r.json())
     .then(r => renderCards(r))
     .then(() => removeLoader());

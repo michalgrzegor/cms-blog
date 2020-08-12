@@ -16,9 +16,9 @@ const renderPostsManager = postsList => {
 const initPostsManager = () => {
   createLoader(document.body);
   blogPostReq()
-    .makeGetAllBlogPosts()
+    .getAllBlogPosts()
     .then(response => response.json())
-    .then(posts => renderPostsManager(posts))
+    .then(renderPostsManager)
     .catch(err => {
       showSnackBar('something went wrong, try again');
       removeLoader();

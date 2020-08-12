@@ -3,12 +3,12 @@ export default class OpenDialog {
     document.querySelector('.dialog__bg').remove();
   }
 
-  yes() {
+  accept() {
     this.yesFunction();
     this.closeDialog();
   }
 
-  no() {
+  decline() {
     this.noFunction();
     this.closeDialog();
   }
@@ -23,11 +23,11 @@ export default class OpenDialog {
     const noButton = document.createElement('button');
     container.classList.add('dialog__bg');
     dialogContainer.classList.add('dialog__container');
-    yesButton.addEventListener('click', () => this.yes());
-    noButton.addEventListener('click', () => this.no());
-    paragraph.innerText = dialogText;
-    yesButton.innerText = 'yes';
-    noButton.innerText = 'no';
+    yesButton.addEventListener('click', () => this.accept());
+    noButton.addEventListener('click', () => this.decline());
+    paragraph.textContent = dialogText;
+    yesButton.textContent = 'yes';
+    noButton.textContent = 'no';
     dialogContainer.appendChild(paragraph);
     dialogContainer.appendChild(yesButton);
     dialogContainer.appendChild(noButton);

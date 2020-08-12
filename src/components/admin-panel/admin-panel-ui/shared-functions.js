@@ -26,10 +26,10 @@ export default class ManagerFunctions extends OpenDialog {
       btn.addEventListener('click', () => {
         createLoader(document.body);
         blogPostReq()
-          .makeGetBlogPost(btn.getAttribute('post-id'))
+          .getBlogPost(btn.getAttribute('post-id'))
           .then(r => r.json())
-          .then(r => changeToEditor(r))
-          .then(r => loadDataToEditor(r))
+          .then(changeToEditor)
+          .then(loadDataToEditor)
           .then(() => removeLoader())
           .catch(err => {
             showSnackBar('something went wrong, try again');
@@ -40,10 +40,10 @@ export default class ManagerFunctions extends OpenDialog {
     Array.from(template.querySelectorAll('.btn--delete')).forEach(btn => {
       btn.addEventListener('click', () => {
         createLoader(document.body);
-        const yesFunction = () => {
+        const accept = () => {
           blogPostReq()
-            .makeDeleteBlogPost(btn.getAttribute('post-id'))
-            .then(() => blogPostReq().makeGetAllBlogPosts())
+            .deleteBlogPost(btn.getAttribute('post-id'))
+            .then(() => blogPostReq().getAllBlogPosts())
             .then(response => response.json())
             .then(response => this.setLists(response, this.mngType, this.arrayName))
             .then(() => this.removeTable())
@@ -54,10 +54,10 @@ export default class ManagerFunctions extends OpenDialog {
               removeLoader();
             });
         };
-        const noFunction = () => {
+        const decline = () => {
           removeLoader();
         };
-        this.createDialog(yesFunction, noFunction, 'Delete this blog post?');
+        this.createDialog(accept, decline, 'Delete this blog post?');
       });
     });
   }
@@ -74,28 +74,23 @@ export default class ManagerFunctions extends OpenDialog {
 
   setSortAttr(elements, element, value) {
     elements.forEach(el => {
-      el.setAttribute('sorted', 0);
+      el.setAttribute('sortOrder', 0);
       el.classList.remove('text-bold');
     });
-    element.setAttribute('sorted', value);
+    element.setAttribute('sortOrder', value);
     element.classList.add('text-bold');
   }
 
-  sort(elements, element, isSorted, sortVariable) {
-    if (isSorted === 0) {
+  sort(elements, element, sortOrder, sortVariable) {
+    if (sortOrder === 0) {
       this.list = this.list.sort((a, b) => this.sortCallback(a, b, sortVariable));
       this.renderedList = [...this.list.slice(0, 10)];
       this.setSortAttr(elements, element, 1);
     }
-    if (isSorted === 1) {
+    if (sortOrder === 1) {
       this.list = this.list.sort((a, b) => this.sortCallback(a, b, sortVariable)).reverse();
       this.renderedList = [...this.list.slice(0, 10)];
-      this.setSortAttr(elements, element, 2);
-    }
-    if (isSorted === 2) {
-      this.list = this.list.sort((a, b) => this.sortCallback(a, b, sortVariable));
-      this.renderedList = [...this.list.slice(0, 10)];
-      this.setSortAttr(elements, element, 1);
+      this.setSortAttr(elements, element, 0);
     }
     document.querySelector(`.${this.mngType}__table`).remove();
     this.renderTable();
@@ -111,28 +106,28 @@ export default class ManagerFunctions extends OpenDialog {
     let sortArray = [];
     if (this.mngType === 'user')
       sortArray = sortArray.concat([
-        legendTemplate.querySelector(`.${this.mngType}__author`),
-        legendTemplate.querySelector(`.${this.mngType}__date`),
-        legendTemplate.querySelector(`.${this.mngType}__email`),
+        legendTemplate.querySelector(`.user__author`),
+        legendTemplate.querySelector(`.user__date`),
+        legendTemplate.querySelector(`.user__email`),
       ]);
     if (this.mngType === 'post')
       sortArray = sortArray.concat([
-        legendTemplate.querySelector(`.${this.mngType}__title`),
-        legendTemplate.querySelector(`.${this.mngType}__author`),
-        legendTemplate.querySelector(`.${this.mngType}__date`),
+        legendTemplate.querySelector(`.post__title`),
+        legendTemplate.querySelector(`.post__author`),
+        legendTemplate.querySelector(`.post__date`),
       ]);
     sortArray.forEach(el =>
       el.addEventListener('click', () =>
-        this.sort(sortArray, el, Number(el.getAttribute('sorted')), el.getAttribute('sort'))
+        this.sort(sortArray, el, Number(el.getAttribute('sortOrder')), el.getAttribute('sort'))
       )
     );
   }
 
   search(value) {
     const key = this.mngType === 'post' ? 'title' : 'username';
-    const newList = [
-      ...this.entryList.filter(el => el[key].toLowerCase().includes(value.toLowerCase())),
-    ];
+    const newList = this.entryList.filter(el =>
+      el[key].toLowerCase().includes(value.toLowerCase())
+    );
     this.setLists(newList, this.mngType, this.arrayName);
     document.querySelector(`.${this.mngType}__table`).remove();
     this.renderTable();
@@ -191,18 +186,25 @@ export default class ManagerFunctions extends OpenDialog {
     this.renderTable();
   }
 
+  removePagesContainer() {
+    const pagesContainer = document.querySelector('.pages__container');
+    if (pagesContainer) pagesContainer.remove();
+  }
+
   renderPages() {
-    if (document.querySelector('.pages__container'))
-      document.querySelector('.pages__container').remove();
+    this.removePagesContainer();
     const arrayOfPages = [...Array(this.pagesNumber).keys()];
     const pagesContainer = document.createElement('div');
     pagesContainer.classList.add('pages__container');
     arrayOfPages.forEach((page, index) => {
       const p = document.createElement('p');
-      p.innerText = page + 1;
-      p.addEventListener('click', () => this.changePage(index));
+      p.textContent = page + 1;
+      p.setAttribute('data-index', index);
       if (this.pageNumber === index + 1) p.classList.add('text--bold');
       pagesContainer.appendChild(p);
+    });
+    pagesContainer.addEventListener('click', event => {
+      if (event.target.matches('p')) this.changePage(Number(event.target.dataset.index));
     });
     document
       .querySelector('.admin__container')
@@ -218,21 +220,21 @@ export default class ManagerFunctions extends OpenDialog {
       const row = tempClone.querySelector(`.${this.mngType}__row`);
       row.setAttribute(`${this.mngType}-id`, element.id);
       if (this.mngType === 'user') {
-        row.querySelector(`.${this.mngType}__number`).innerText =
+        row.querySelector(`.user__number`).textContent =
           this.renderedList.indexOf(element) + 1 + this.pageNumber * 10 - 10;
-        row.querySelector(`.${this.mngType}__author`).innerText = element.username;
-        row.querySelector(`.${this.mngType}__date`).innerText = new Date(
+        row.querySelector(`.user__author`).textContent = element.username;
+        row.querySelector(`.user__date`).textContent = new Date(
           element.created_at
         ).toLocaleDateString();
-        row.querySelector(`.${this.mngType}__email`).innerText = element.email;
+        row.querySelector(`.user__email`).textContent = element.email;
       }
       if (this.mngType === 'post') {
-        row.querySelector(`.${this.mngType}__number`).innerText =
+        row.querySelector(`.post__number`).textContent =
           this.renderedList.indexOf(element) + 1 + this.pageNumber * 10 - 10;
-        row.querySelector(`.${this.mngType}__title`).innerText =
+        row.querySelector(`.post__title`).textContent =
           element.title.length > 35 ? this.truncate(element.title) : element.title;
-        row.querySelector(`.${this.mngType}__author`).innerText = element.author;
-        row.querySelector(`.${this.mngType}__date`).innerText = new Date(
+        row.querySelector(`.post__author`).textContent = element.author;
+        row.querySelector(`.post__date`).textContent = new Date(
           element.last_update_date
         ).toLocaleDateString();
       }

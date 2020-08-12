@@ -69,13 +69,11 @@ const sendPost = () => {
       ops: editor.getContents().ops,
     },
   };
-  console.log(data);
   createLoader(document.body);
   blogPostReq()
-    .makePostBlogPost(data)
+    .postBlogPost(data)
     .then(r => {
       const response = r.json();
-      console.log(response);
       return response;
     })
     .then(r => redirectToBlogPost(r))
@@ -99,14 +97,11 @@ const sendUpdate = id => {
       ops: editor.getContents().ops,
     },
   };
-  console.log(data);
   createLoader(document.body);
   blogPostReq()
-    .makeUpdateBlogPost(id, data)
+    .updateBlogPost(id, data)
     .then(r => {
-      console.log(r);
       const response = r.json();
-      console.log(response);
       return response;
     })
     .then(r => redirectToBlogPost(r))
@@ -150,7 +145,6 @@ const changeButton = id => {
 };
 
 export const loadDataToEditor = responseData => {
-  console.log(responseData);
   changeButton(responseData.id);
   document.querySelector('#editor__title').value = responseData.title;
   document.querySelector('.editor__textarea').value = responseData.introduction;

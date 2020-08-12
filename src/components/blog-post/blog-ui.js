@@ -3,7 +3,6 @@ import facebook from '../../assets/img/facebook.png';
 import commentlogo from '../../assets/img/commentlogo.png';
 import {blogPostsMainPageReq} from '../auth/fetch';
 import {createLoader, removeLoader} from '../shared-ui/loader';
-import imageLoader from '../shared-ui/image-loader';
 
 const createTitle = resJson => {
   const header = document.createElement('h1');
@@ -97,7 +96,7 @@ const createPost = resJson => {
 
 const getPostId = () => new URLSearchParams(window.location.search).get('id');
 
-const getBlogPost = () => blogPostsMainPageReq().makeGetBlogPostMainPage(getPostId());
+const getBlogPost = () => blogPostsMainPageReq().getBlogPostMainPage(getPostId());
 
 export const createBlogPost = res => {
   createTitle(res);
@@ -112,5 +111,3 @@ export const initBlogPost = () => {
     .then(res => createBlogPost(res))
     .then(() => removeLoader());
 };
-
-// export default initBlogPost;

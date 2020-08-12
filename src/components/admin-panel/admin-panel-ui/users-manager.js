@@ -32,7 +32,7 @@ const renderUsersManager = usersList => {
 
 const initUsersManager = () => {
   usersReq()
-    .makeGetUsers()
+    .getUsers()
     .then(r => r.json())
     .then(r => renderUsersManager(r));
 };
